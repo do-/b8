@@ -124,9 +124,8 @@ function query (data, done) {
 
     .done (function (data) {
     
-        if (data.url == '/?type=_boot') {
-            sessionStorage.clear ()
-            location.reload ()
+        if (false) {
+// todo
         }
         else {
             done (data)
@@ -134,7 +133,17 @@ function query (data, done) {
     
     })
     
-    .fail (function () {alert ("error")})
+    .fail (function (jqXHR) {
+    
+        if (jqXHR.status == 401) {
+            sessionStorage.clear ()
+            location.reload ()
+        } 
+        else {
+            alert ('Error')
+        }    
+    
+    })
 
 }
 
