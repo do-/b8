@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>Типовое приложение</title>
+		<base href="/">
+		<noscript>
+			<meta http-equiv="refresh" content="0; url=/_unmaintainable_browser/">
+		</noscript>
+		<link rel="stylesheet/less" type="text/css" href="_/libs/tmilk/tmilk.less">
+		<script>
+			window.timeBomb = setTimeout (
+				function () {
+					window.location.href='/_unmaintainable_browser/'
+				} , 1000
+			);
+		</script>
+		<script src="_/libs/requirejs/require.js" data-main="_/app/handler.js"></script>
+	</head>
+	<body></body>
+</html>

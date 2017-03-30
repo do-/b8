@@ -1,0 +1,44 @@
+<span class="drw form">
+
+	<table>
+		<tr data-off="_read_only">
+			<th>Фамилия:</th>
+			<td><input name="f" size="40"></td>
+		</tr>
+		<tr data-off="_read_only">
+			<th>Имя:</th>
+			<td><input name="i" size="40"></td>
+		</tr>
+		<tr data-off="_read_only">
+			<th>Отчество:</th>
+			<td><input name="o" size="40"></td>
+		</tr>
+		<tr data-on="_read_only">
+			<th>ФИО:</th>
+			<td data-text="label"></td>
+		</tr>
+		<tr>
+			<th>login:</th>
+			<td><input name="login" size="40"></td>
+		</tr>
+		<tr>
+			<th>Роль:</th>
+			<td data-text="role">
+				<div data-list="roles">
+					<input name="id_role" type="radio" data-value="id"><span data-text="label" />
+				</div>
+			</td>
+		</tr>
+	</table>
+
+	<div class="toolbar">
+
+		<button class="icon ok"     data-off="_read_only" data-key="Ctrl-Enter">Применить</button>
+		<button class="icon cancel" data-off="_read_only" data-key="Esc">Отменить</button>
+
+		<button class="icon edit"   data-on="_read_only"  data-key="F4">Редактировать</button>
+		<button class="icon close"  data-on="_read_only"  data-key="Esc">Закрыть</button>
+
+	</div>
+
+</span>

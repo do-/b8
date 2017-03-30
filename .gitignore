@@ -1,0 +1,6 @@
+/server/conf
+/server/docroot/dbm
+/server/docroot/i/_mbox
+/server/docroot/i/_skins
+/server/docroot/session_access_logs
+/server/logs
