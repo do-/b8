@@ -1,5 +1,5 @@
 use Cwd 'abs_path';
-my $path = abs_path ('../../core');
+my $path = abs_path ('../../core_cut');
 
 eval qq {
 
