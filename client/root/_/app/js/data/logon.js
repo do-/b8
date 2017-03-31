@@ -4,17 +4,16 @@ define ([], function () {
     
         query ({
         
-            type:     'logon',
-            action:   'execute_json',
+            type:     'sessions',
+            action:   'create',
             login:    $('input[name=login]').val (),
             password: $('input[name=password]').val (),
             
         }, function (data) {
-
-            if (data.success) {
-                $_SESSION.set ('user', data.user)
-                sessionStorage.setItem ('sid', data.sid)
-            }
+        
+            var d = data.data
+            
+            if (d.success) $_SESSION.set ('user', d.user)
             
             draw_page ()
         

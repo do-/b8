@@ -1,4 +1,4 @@
-var $_REQUEST = {}, $_DO = {}, $_USER
+var $_REQUEST = {}, $_DO = {nothing: function () {}}, $_USER
 
 function darn (o) {
     if (console) console.log (o)
@@ -22,10 +22,12 @@ function setup_request () {
 var $_SESSION = {
 
     get: function (key) {
+
         try {
             return JSON.parse (sessionStorage.getItem (key))
         }
         catch (e) {
+            console.log (e)
             return undefined
         }        
     },
@@ -96,9 +98,7 @@ use.block = function (name) {
         
 }
 
-function query (data, done) {
-
-    data.sid = sessionStorage.getItem ('sid')
+function query (data, done, fail) {
     
     var url = '/_data/';
     
@@ -134,6 +134,8 @@ function query (data, done) {
     })
     
     .fail (function (jqXHR) {
+    
+        if (fail) return fail ()
     
         if (jqXHR.status == 401) {
             sessionStorage.clear ()
