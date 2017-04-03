@@ -113,8 +113,14 @@ function values (jq) {
 function query (tia, data, done, fail) {
 
     var url = '/_back/?';
-    if (!('type' in tia) && $_REQUEST.type) tia.type = $_REQUEST.type
-    if (!('id' in tia) && $_REQUEST.id) tia.id = $_REQUEST.id
+
+    if ('type' in tia) {
+        if (!tia.type) tia = {}    // empty request for keep-alive
+    }
+    else {
+        tia.type = $_REQUEST.type
+        if (!('id' in tia) && $_REQUEST.id) tia.id = $_REQUEST.id
+    }
     
     var headers = {};    
     if ($_REQUEST._secret) {

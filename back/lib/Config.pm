@@ -1,43 +1,12 @@
 our $conf = {
-
-	page_title => '“иповое Eludia-приложение',
 	
 	portion => 15,
-	session_timeout => 30,
-	
-	max_len => 50,
-	
-	number_format => {
-		-thousands_sep   => ' ',
-		-decimal_point   => ',',
-	},
-	
-	core_auto_esc   => 2,
-	core_auto_edit  => 1,
-	core_show_icons => 1,
-	core_hide_row_buttons => 2,
+	session_timeout => 1,
+		
 	core_recycle_ids => 0,
 	core_unlimit_xls => 1,
 	
-	kb_options_menu    => {alt => 1},
-	kb_options_buttons => {ctrl => 1},
-		
-	i18n => {
-	
-		RUS => {
-		
-			edit   => 'редактировать (F4)',
-			cancel => 'вернутьс€ (Esc)',
-			ok     => 'применить (Ctrl-Enter)',
-			delete => 'удалить (Ctrl-Del)',
-		
-		}
-	
-	}
-
 };
-
-our @month_names = ('€нвар€', 'феврал€', 'марта', 'апрел€', 'ма€', 'июн€', 'июл€', 'августа', 'сент€бр€', 'окт€бр€', 'но€бр€', 'декабр€');
 
 our $DB_MODEL = {
 
@@ -47,15 +16,5 @@ our $DB_MODEL = {
 	},
 
 };
-
-#sub draw_auth_toolbar {
-#	' '
-#}
-
-sub get_skin_name {
-
-	$r -> {headers_in} -> {'X-Requested-With'} eq 'XMLHttpRequest' ? 'JSONDumper' : 'TurboMilk';
-
-}
 	
 1;

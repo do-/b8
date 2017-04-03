@@ -12,7 +12,10 @@ define ([], function () {
 
                 var d = data.data
 
-                if (d && d.success) $_SESSION.set ('user', d.user)
+                if (d && d.success) {
+                    $_SESSION.set ('user', d.user)
+                    $_SESSION.set ('timeout', d.timeout)
+                }
 
                 draw_page ()
 
@@ -25,5 +28,5 @@ define ([], function () {
     return function (done) {    
         done ()    
     }
-        
+
 });
