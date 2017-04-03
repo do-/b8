@@ -119,8 +119,9 @@ function query (tia, data, done, fail) {
     }
     else {
         tia.type = $_REQUEST.type
-        if (!('id' in tia) && $_REQUEST.id) tia.id = $_REQUEST.id
     }
+
+    if (tia.type && !('id' in tia) && $_REQUEST.id) tia.id = $_REQUEST.id
     
     var headers = {};    
     if ($_REQUEST._secret) {
