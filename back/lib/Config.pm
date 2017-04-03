@@ -1,3 +1,5 @@
+use Digest::SHA 'sha256_hex';
+
 our $conf = {
 	
 	portion => 15,
@@ -16,5 +18,21 @@ our $DB_MODEL = {
 	},
 
 };
+
+sub password_hash {
+
+	my ($salt, $password) = @_;
+	
+	my $sha = Digest::SHA -> new (256);
+	
+	$sha -> addfile ($preconf -> {salt_file}) if $preconf -> {salt_file};
+
+	$sha -> add ($salt);
+
+	$sha -> add ($password);
+	
+	return $sha -> hexdigest;
+
+}
 	
 1;
