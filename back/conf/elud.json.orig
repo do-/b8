@@ -1,0 +1,19 @@
+{
+		
+	"fcgi": {
+		"port"   : 9000
+	},
+	
+	"app": {
+
+		"db_dsn"      : "DBI:mysql:database=...",
+		"db_user"     : "...",
+		"db_password" : "...",
+		
+#		"salt_file"   : "c:/buf/___/salt.txt",
+
+		"core_debug_profiling": 1
+
+	}
+
+}
