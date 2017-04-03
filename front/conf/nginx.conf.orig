@@ -1,0 +1,30 @@
+# unless yet defined
+log_format back escape=json '$time_iso8601 $args "$request_body" $cookie_login $cookie_sid $remote_addr $status $body_bytes_sent';
+
+# FCGI elud daemon
+upstream  fcgi {
+    server   127.0.0.1:9000;
+}
+
+# back end HTTP server
+server {    
+    listen  8010;
+    root    "c:/projects/b8/back/docroot";
+    location =/ {
+        fastcgi_pass   fcgi;
+        include        fastcgi_params;            
+    }
+}
+
+# back end HTTP server reference for using in frontend
+upstream b8_back {
+    server   127.0.0.1:8010;
+}
+
+# front end HTTP server
+server {    
+    listen  8011;
+    root    "c:/projects/b8/front/root";
+    include "c:/projects/b8/front/conf/app.conf";
+    access_log "c:/projects/b8/front/logs/access.log" back;
+}
