@@ -7,7 +7,7 @@ define ([], function () {
         query ({
             type:     'sessions',
             action:   'delete'
-        }, $_DO.nothing, $_DO.nothing)
+        }, {}, $_DO.nothing, $_DO.nothing)
         
         window.location.href = '/'
         
