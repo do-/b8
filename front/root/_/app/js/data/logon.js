@@ -2,22 +2,23 @@ define ([], function () {
 
     $_DO.execute_logon = function () {    
     
-        query ({
-            type:     'sessions',
-            action:   'create'
-        },
-        {        
-            login:    $('input[name=login]').val (),
-            password: $('input[name=password]').val (),            
-        }, function (data) {
+        query (
         
-            var d = data.data
-            
-            if (d.success) $_SESSION.set ('user', d.user)
-            
-            draw_page ()
+            {type: 'sessions', action: 'create'},
         
-        })
+            values ($('.logon.form')),
+        
+            function (data) {
+
+                var d = data.data
+
+                if (d && d.success) $_SESSION.set ('user', d.user)
+
+                draw_page ()
+
+            }
+        
+        )
 
     }
 

@@ -99,9 +99,14 @@ use.block = function (name) {
 }
 
 function values (jq) {
-    var o = {};
+    var o = {}
+    var prefix = '-'
     var a = jq.clone ().wrap ('<form/>').parent ().serializeArray ()
-    for (var i = 0; i < a.length; i ++) o['-' + a[i].name] = a[i].value    
+    for (var i = 0; i < a.length; i ++) o[prefix + a[i].name] = a[i].value
+    $('input[type=password]', jq).each (function () {
+        if (!$_REQUEST._secret) $_REQUEST._secret = []
+        $_REQUEST._secret.push (prefix + this.name)
+    })
     return o
 }
 
@@ -110,6 +115,16 @@ function query (tia, data, done, fail) {
     var url = '/_back/?';
     if (!('type' in tia) && $_REQUEST.type) tia.type = $_REQUEST.type
     if (!('id' in tia) && $_REQUEST.id) tia.id = $_REQUEST.id
+    
+    var headers = {};    
+    if ($_REQUEST._secret) {
+        for (var i = 0; i < $_REQUEST._secret.length; i ++) {
+            var name = $_REQUEST._secret [i]
+            headers ['X-Request-Param-' + name] = data [name]
+            delete data [name]
+        }
+        delete $_REQUEST._secret
+    }
 
     $.ajax (url + $.param (tia), {
         dataType:    'json',
@@ -117,7 +132,8 @@ function query (tia, data, done, fail) {
         processData: false,
         contentType: 'application/json',
         timeout:     1000,
-        data:        JSON.stringify (data)
+        data:        JSON.stringify (data),
+        headers:     headers
     })
 
     .done (function (data) {
