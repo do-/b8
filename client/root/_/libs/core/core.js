@@ -98,28 +98,26 @@ use.block = function (name) {
         
 }
 
-function query (data, done, fail) {
-    
-    var url = '/_data/';
-    
-/*
-    if (data.type)   url += '?type='   + data.type
-    if (data.id)     url += '&id='     + data.id
-    if (data.action) url += '&action=' + data.action
-    
-    delete data.type
-    delete data.id
-    delete data.action    
-*/
-    
-    $.ajax (url, {
+function values (jq) {
+    var o = {};
+    var a = jq.clone ().wrap ('<form/>').parent ().serializeArray ()
+    for (var i = 0; i < a.length; i ++) o['-' + a[i].name] = a[i].value    
+    return o
+}
+
+function query (tia, data, done, fail) {
+
+    var url = '/_back/?';
+    if (!('type' in tia) && $_REQUEST.type) tia.type = $_REQUEST.type
+    if (!('id' in tia) && $_REQUEST.id) tia.id = $_REQUEST.id
+
+    $.ajax (url + $.param (tia), {
         dataType:    'json',
-        method:    'GET',
-//        method:      'POST',
-//        processData: false,
+        method:      'POST',
+        processData: false,
+        contentType: 'application/json',
         timeout:     1000,
-//        data:        JSON.stringify (data)
-        data:        data
+        data:        JSON.stringify (data)
     })
 
     .done (function (data) {

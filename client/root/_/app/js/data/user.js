@@ -2,18 +2,10 @@ define ([], function () {
 
     $_DO.update_user = function () {    
 
-        query ({        
-        
+        query ({                
             type:     'users',            
             action:   'update',
-            id:       $_REQUEST.id,
-            _f:       $('input[name=f]').val (),
-            _i:       $('input[name=i]').val (),
-            _o:       $('input[name=o]').val (),
-            _login:   $('input[name=login]').val (),
-            _id_role: $('input[name=id_role]:checked').val (),
-            
-        }, function (data) {
+        }, {data: values ($('.drw.form'))}, function (data) {
         
             if (data.message) {
             
@@ -32,10 +24,7 @@ define ([], function () {
 
     return function (done) {
     
-        query ({
-            type:   'users',
-            id: $_REQUEST.id
-        }, done)
+        query ({type: 'users'}, {}, done)
         
     }
         

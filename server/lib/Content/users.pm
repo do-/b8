@@ -61,29 +61,24 @@ sub get_item_of_users {
 ################################################################################
 
 sub do_update_users {
+
+	my $data = $_REQUEST {data};
 	
-	sql_do_update ('users', [qw(f i o label login id_role)]);
+	$data -> {-f} =~ /^[À-ß¨][à-ÿ¸]+$/ or die "#-f#:Íåêîğğåêòíàÿ ôàìèëèÿ";
+	$data -> {-i} =~ /^[À-ß¨][à-ÿ¸]+$/ or die "#-i#:Íåêîğğåêòíîå èìÿ";
+	$data -> {-o} =~ /^[À-ß¨][à-ÿ¸]*[à÷]$/ or die "#-o#:Íåêîğğåêòíîå îò÷åñòâî";
 
-	$_REQUEST {_password} and sql_do ("UPDATE users SET password=PASSWORD(?) WHERE id=?", $_REQUEST {_password}, $_REQUEST {id});
+	$data -> {-label} = $data -> {-f} . ' ' . $data -> {-i} . ' ' . $data -> {-o};
 
-}
+	$data -> {-id_role} or die "#-id_role#:Âû çàáûëè óêàçàòü ğîëü";	
+	$data -> {-login}   or die "#-login#:Âû çàáûëè óêàçàòü login";	
 
-################################################################################
-
-sub validate_update_users {
-
-	$_REQUEST {_f} =~ /^[À-ß¨][à-ÿ¸]+$/ or return "#_f#:Íåêîğğåêòíàÿ ôàìèëèÿ";
-	$_REQUEST {_i} =~ /^[À-ß¨][à-ÿ¸]+$/ or return "#_i#:Íåêîğğåêòíîå èìÿ";
-	$_REQUEST {_o} =~ /^[À-ß¨][à-ÿ¸]*[à÷]$/ or return "#_o#:Íåêîğğåêòíîå îò÷åñòâî";
-
-	$_REQUEST {_label} = $_REQUEST {_f} . ' ' . $_REQUEST {_i} . ' ' . $_REQUEST {_o};
-
-	$_REQUEST {_id_role} or return "#_id_role#:Âû çàáûëè óêàçàòü ğîëü";	
-
-	vld_unique ('users', {field => 'login'}) or return "#_login#:Login '$_REQUEST{_login}' óæå çàíÿò";
+	vld_unique ('users', {field => 'login'}) or die "#_login#:Login '$_REQUEST{_login}' óæå çàíÿò";
 	
-	undef;
+	$data -> {id} = $_REQUEST {id};
 	
+	sql_select_id (users => $data, ['id']);
+
 }
 
 ################################################################################

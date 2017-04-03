@@ -3,12 +3,12 @@ define ([], function () {
     $_DO.execute_logon = function () {    
     
         query ({
-        
             type:     'sessions',
-            action:   'create',
+            action:   'create'
+        },
+        {        
             login:    $('input[name=login]').val (),
-            password: $('input[name=password]').val (),
-            
+            password: $('input[name=password]').val (),            
         }, function (data) {
         
             var d = data.data
