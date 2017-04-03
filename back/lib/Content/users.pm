@@ -41,20 +41,13 @@ EOS
 
 sub get_item_of_users {
 
-	my $item = sql_select_hash ("users");
+	my $data = sql ("users");
 	
-	$item -> {__this_content_is_ok_to_be_shown_completely} = 1;
-	
-	$_REQUEST {__read_only} ||= !($_REQUEST {__edit} || $item -> {fake} > 0);
-
-	add_vocabularies ($item, 'roles');
-
-	$item -> {path} = [
-		{type => 'users', name => 'Пользователи'},
-		{type => 'users', name => $item -> {label}, id => $item -> {id}},
-	];
+	delete $data -> {password};
 		
-	return $item;
+	add_vocabularies ($data, 'roles');
+		
+	return $data;
 	
 }
 
@@ -72,6 +65,14 @@ sub do_update_users {
 
 	$data -> {-id_role} or die "#-id_role#:Вы забыли указать роль";	
 	$data -> {-login}   or die "#-login#:Вы забыли указать login";	
+	
+	if ($data -> {-password}) {
+		$data -> {-salt}     = password_hash (rand, time);
+		$data -> {-password} = password_hash ($data -> {-salt}, $data -> {-password});
+	}
+	else {
+		delete $data -> {-password};
+	}
 
 	vld_unique ('users', {field => 'login'}) or die "#_login#:Login '$_REQUEST{_login}' уже занят";
 	

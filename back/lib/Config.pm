@@ -1,4 +1,4 @@
-use Digest::SHA 'sha256_hex';
+use Digest::SHA;
 
 our $conf = {
 	
