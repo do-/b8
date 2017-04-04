@@ -64,17 +64,19 @@ sub do_update_users {
 	$data -> {label} = $data -> {f} . ' ' . $data -> {i} . ' ' . $data -> {o};
 
 	$data -> {id_role} or die "#id_role#:Вы забыли указать роль";	
-	$data -> {login}   or die "#login#:Вы забыли указать login";	
+	$data -> {login}   or die "#login#:Вы забыли указать login";
+	
+	my $p2 = delete $data -> {password2};
 	
 	if ($data -> {password}) {
 	
-		$data -> {password} eq delete $data -> {password2} or die "#password#:Ошибка при первом или повторном вводе пароля";
+		$data -> {password} eq $p2 or die "#password#:Ошибка при первом или повторном вводе пароля";
 	
 		$data -> {salt}     = password_hash (rand, time);
 		$data -> {password} = password_hash ($data -> {salt}, $data -> {password});
 	}
 	else {
-		delete $data -> {-password};
+		delete $data -> {password};
 	}
 
 #	vld_unique ('users', {field => 'login'}) or die "#_login#:Login '$_REQUEST{_login}' уже занят";
@@ -91,6 +93,14 @@ sub do_update_users {
 sub do_create_users {
 
 	{id => sql_do_insert (users => {})};
+	
+}
+
+################################################################################
+
+sub do_delete_users {
+
+	sql_do ('UPDATE users SET fake = -1 WHERE id = ?', $_REQUEST {id});
 	
 }
 
