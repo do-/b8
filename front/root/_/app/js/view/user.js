@@ -28,6 +28,7 @@ define ([], function () {
             }            
 
             clickOn ($('button.edit'),   function () {user._read_only = false; draw ()})
+            clickOn ($('button.delete'), $_DO.delete_user, 'Удалить карточку этого пользователя?')
             clickOn ($('button.cancel'), function () {
                 if (user.fake) {
                     window.close ()
@@ -36,10 +37,10 @@ define ([], function () {
                     user._read_only = true  
                     draw ()
                 }
-            })
+            }, 'Отменить операцию?')
             
-            clickOn ($('button.close'),  function () {window.close ()})
-            clickOn ($('button.ok'),     $_DO.update_user)
+            clickOn ($('button.close'),  function () {window.close ()}, 'Закрыть эту вкладку?')
+            clickOn ($('button.ok'),     $_DO.update_user, 'Сохранить данные?')
 
         }
         
