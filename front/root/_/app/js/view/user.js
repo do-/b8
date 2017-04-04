@@ -16,7 +16,7 @@ define ([], function () {
         
         user._read_only = (user.fake == 0)
             
-        $('title').text (user.fake ? 'Новый пользователь' : user.label)
+        $('title').text (user.fake > 0 ? 'Новый пользователь' : user.label)
         
         function draw () {
 
@@ -28,19 +28,19 @@ define ([], function () {
             }            
 
             clickOn ($('button.edit'),   function () {user._read_only = false; draw ()})
-            clickOn ($('button.delete'), $_DO.delete_user, 'Удалить карточку этого пользователя?')
+            clickOn ($('button.delete'), $_DO.delete_user)
             clickOn ($('button.cancel'), function () {
-                if (user.fake) {
+                if (user.fake > 0) {
                     window.close ()
                 }
                 else {
                     user._read_only = true  
                     draw ()
                 }
-            }, 'Отменить операцию?')
+            })
             
-            clickOn ($('button.close'),  function () {window.close ()}, 'Закрыть эту вкладку?')
-            clickOn ($('button.ok'),     $_DO.update_user, 'Сохранить данные?')
+            clickOn ($('button.close'),  function () {window.close ()})
+            clickOn ($('button.ok'),     $_DO.update_user)
 
         }
         

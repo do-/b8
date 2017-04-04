@@ -247,9 +247,15 @@ function onDataUriDblClick (e) {
 }
 
 function clickOn (jq, onClick, question) {
+
+    if (!question) question = jq.attr ('data-question')
+
     jq.toggleClass ('clickable', true).unbind ('click').click (
-        question ? function () {if (confirm (question)) onClick ()} : onClick
+        question ? function (event) {
+            if (confirm (question)) onClick ()
+        } : onClick
     )
+
 }
 
 function clickOff (jq) {
