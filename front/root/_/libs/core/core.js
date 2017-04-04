@@ -246,10 +246,12 @@ function onDataUriDblClick (e) {
     openTab (uri, uri)
 }
 
-function clickOn (jq, onClick) {
-    jq.toggleClass ('clickable', true).unbind ('click').click (onClick)
+function clickOn (jq, onClick, question) {
+    jq.toggleClass ('clickable', true).unbind ('click').click (
+        question ? function () {if (confirm (question)) onClick ()} : onClick
+    )
 }
 
-function clickOff (jq, onClick) {
+function clickOff (jq) {
     jq.toggleClass ('clickable', false).unbind ('click')
 }
