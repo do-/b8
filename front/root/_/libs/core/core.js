@@ -143,9 +143,10 @@ function query (tia, data, done, fail) {
     })
 
     .done (function (data) {
-    
-        if (false) {
-// todo
+        
+        if (data.message) {            
+            if (data.field) $('input[name=' + data.field + ']').focus (),
+            alert (data.message)
         }
         else {
             done (data)

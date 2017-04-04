@@ -5,20 +5,7 @@ define ([], function () {
         query ({                
             type:     'users',            
             action:   'update',
-        }, {data: values ($('.drw.form'))}, function (data) {
-        
-            if (data.message) {
-            
-                if (data.field) $('input[name=' + data.field + ']').focus (),
-
-                alert (data.message)
-
-            }
-            else {
-                use.block ('user')
-            }
-        
-        })
+        }, {data: values ($('.drw.form'))}, function (data) {use.block ('user')})
 
     }
 
