@@ -153,7 +153,7 @@ function query (tia, data, done, fail) {
     
     })
     
-    .fail (function (jqXHR) {
+    .fail (function (jqXHR, e) {
     
         if (fail) return fail ()
     
@@ -162,6 +162,7 @@ function query (tia, data, done, fail) {
             location.reload ()
         } 
         else {
+            console.log (jqXHR, e)
             alert ('Error')
         }    
     
@@ -260,4 +261,14 @@ function clickOn (jq, onClick, question) {
 
 function clickOff (jq) {
     jq.toggleClass ('clickable', false).unbind ('click')
+}
+
+function onEnterGoToNextInput (e) {
+    if (e.which != 13) return
+    if (e.ctrlKey) return
+    if (e.altKey) return
+    if (e.shiftKey) return
+    var inputs = $('input')
+    var i = inputs.index ($(this))
+    inputs.eq (i + 1).focus ()
 }

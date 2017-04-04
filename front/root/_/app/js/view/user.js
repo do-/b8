@@ -25,6 +25,7 @@ define ([], function () {
             if (!user._read_only) {            
                 recalc_span_password2 (); i_password ().keyup (recalc_span_password2)            
                 $('input:first').focus ()
+                $('input').keyup (onEnterGoToNextInput)
             }            
 
             clickOn ($('button.edit'),   function () {user._read_only = false; draw ()})
