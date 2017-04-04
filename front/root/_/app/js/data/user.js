@@ -9,7 +9,7 @@ define ([], function () {
         
             if (data.message) {
             
-                if (data.field) $('input[name=' + data.field.substr (1) + ']').focus (),
+                if (data.field) $('input[name=' + data.field + ']').focus (),
 
                 alert (data.message)
 

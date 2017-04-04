@@ -21,9 +21,15 @@
 			<th>login:</th>
 			<td><input name="login" size="40"></td>
 		</tr>
-		<tr>
+		<tr data-off="_read_only">
 			<th>Пароль:</th>
-			<td><input name="password" type="password" size="40"></td>
+			<td>
+				<input name="password" type="password" size="40">
+				<span id="span-password2">
+					ещё раз:
+					<input name="password2" type="password" size="40">
+				<span>
+			</td>
 		</tr>
 		<tr>
 			<th>Роль:</th>

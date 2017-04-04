@@ -9,7 +9,7 @@ sub do_create_sessions {
 		timeout => sql_sessions_timeout_in_minutes (),
 		
 		user    => sql (users => [
-			[login => $_REQUEST {-login}],
+			[login => $_REQUEST {login}],
 			[fake  => [0, -1]],
 			[LIMIT => 1],
 		]),
@@ -18,7 +18,7 @@ sub do_create_sessions {
 	
 	if (!$data -> {user} -> {id}) {
 	
-		warn "Non-existing login entered: $_REQUEST{-login}\n";
+		warn "Non-existing login entered: $_REQUEST{login}\n";
 
 		return undef;
 	
@@ -26,13 +26,13 @@ sub do_create_sessions {
 	
 	if ($data -> {user} -> {fake} != 0) {
 	
-		warn "An attempt to use deleted login detected: $_REQUEST{-login}\n";
+		warn "An attempt to use deleted login detected: $_REQUEST{login}\n";
 
 		return undef;
 	
 	}
 
-	my $hash = password_hash ($data -> {user} -> {salt}, $_REQUEST {-password});
+	my $hash = password_hash ($data -> {user} -> {salt}, $_REQUEST {password});
 
 	if ($hash ne $data -> {user} -> {password}) {
 	

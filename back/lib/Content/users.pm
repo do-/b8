@@ -57,18 +57,21 @@ sub do_update_users {
 
 	my $data = $_REQUEST {data};
 	
-	$data -> {-f} =~ /^[А-ЯЁ][а-яё]+$/ or die "#-f#:Некорректная фамилия";
-	$data -> {-i} =~ /^[А-ЯЁ][а-яё]+$/ or die "#-i#:Некорректное имя";
-	$data -> {-o} =~ /^[А-ЯЁ][а-яё]*[ач]$/ or die "#-o#:Некорректное отчество";
+	$data -> {f} =~ /^[А-ЯЁ][а-яё]+$/ or die "#f#:Некорректная фамилия";
+	$data -> {i} =~ /^[А-ЯЁ][а-яё]+$/ or die "#i#:Некорректное имя";
+	$data -> {o} =~ /^[А-ЯЁ][а-яё]*[ач]$/ or die "#o#:Некорректное отчество";
 
-	$data -> {-label} = $data -> {-f} . ' ' . $data -> {-i} . ' ' . $data -> {-o};
+	$data -> {label} = $data -> {f} . ' ' . $data -> {i} . ' ' . $data -> {o};
 
-	$data -> {-id_role} or die "#-id_role#:Вы забыли указать роль";	
-	$data -> {-login}   or die "#-login#:Вы забыли указать login";	
+	$data -> {id_role} or die "#id_role#:Вы забыли указать роль";	
+	$data -> {login}   or die "#login#:Вы забыли указать login";	
 	
-	if ($data -> {-password}) {
-		$data -> {-salt}     = password_hash (rand, time);
-		$data -> {-password} = password_hash ($data -> {-salt}, $data -> {-password});
+	if ($data -> {password}) {
+	
+		$data -> {password} eq $data -> {password2} or die "#password#:Ошибка при первом или повторном вводе пароля";
+	
+		$data -> {salt}     = password_hash (rand, time);
+		$data -> {password} = password_hash ($data -> {salt}, $data -> {password});
 	}
 	else {
 		delete $data -> {-password};
@@ -78,7 +81,7 @@ sub do_update_users {
 	
 	$data -> {id} = $_REQUEST {id};
 	
-	sql_select_id (users => $data, ['id']);
+	sql_select_id (users => dash ($data, ['id']));
 
 }
 

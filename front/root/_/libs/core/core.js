@@ -100,12 +100,11 @@ use.block = function (name) {
 
 function values (jq) {
     var o = {}
-    var prefix = '-'
     var a = jq.clone ().wrap ('<form/>').parent ().serializeArray ()
-    for (var i = 0; i < a.length; i ++) o[prefix + a[i].name] = a[i].value
+    for (var i = 0; i < a.length; i ++) o[a[i].name] = a[i].value
     $('input[type=password]', jq).each (function () {
         if (!$_REQUEST._secret) $_REQUEST._secret = []
-        $_REQUEST._secret.push (prefix + this.name)
+        $_REQUEST._secret.push (this.name)
     })
     return o
 }
