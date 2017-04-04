@@ -14,9 +14,9 @@ define ([], function () {
     
         user = data.content
         
-        user._read_only = true
+        user._read_only = (user.fake == 0)
             
-        $('title').text (user.label)
+        $('title').text (user.fake ? 'Новый пользователь' : user.label)
         
         function draw () {
 
@@ -28,7 +28,15 @@ define ([], function () {
             }            
 
             clickOn ($('button.edit'),   function () {user._read_only = false; draw ()})
-            clickOn ($('button.cancel'), function () {user._read_only = true;  draw ()})
+            clickOn ($('button.cancel'), function () {
+                if (user.fake) {
+                    window.close ()
+                }
+                else {
+                    user._read_only = true  
+                    draw ()
+                }
+            })
             
             clickOn ($('button.close'),  function () {window.close ()})
             clickOn ($('button.ok'),     $_DO.update_user)

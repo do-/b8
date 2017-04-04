@@ -68,7 +68,7 @@ sub do_update_users {
 	
 	if ($data -> {password}) {
 	
-		$data -> {password} eq $data -> {password2} or die "#password#:Ошибка при первом или повторном вводе пароля";
+		$data -> {password} eq delete $data -> {password2} or die "#password#:Ошибка при первом или повторном вводе пароля";
 	
 		$data -> {salt}     = password_hash (rand, time);
 		$data -> {password} = password_hash ($data -> {salt}, $data -> {password});
@@ -77,9 +77,10 @@ sub do_update_users {
 		delete $data -> {-password};
 	}
 
-	vld_unique ('users', {field => 'login'}) or die "#_login#:Login '$_REQUEST{_login}' уже занят";
+#	vld_unique ('users', {field => 'login'}) or die "#_login#:Login '$_REQUEST{_login}' уже занят";
 	
-	$data -> {id} = $_REQUEST {id};
+	$data -> {fake} = 0;
+	$data -> {id}   = $_REQUEST {id};
 	
 	sql_select_id (users => dash ($data, ['id']));
 
@@ -89,9 +90,7 @@ sub do_update_users {
 
 sub do_create_users {
 
-	$_REQUEST {id} = sql_do_insert ('users', {
-		label => 'Фамилия И. О.',
-	});
+	{id => sql_do_insert (users => {})};
 	
 }
 

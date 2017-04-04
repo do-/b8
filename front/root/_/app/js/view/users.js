@@ -15,6 +15,8 @@ define ([], function () {
     
         $('main').empty ().append (view)
 
+        clickOn ($('button.create'), $_DO.create_user)
+
         use.lib ('tmilk/table-selector')
     
     }
