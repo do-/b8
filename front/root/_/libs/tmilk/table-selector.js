@@ -140,11 +140,14 @@ define ([], function () {
 
         if (move [crd] (c, dir)) e.preventDefault ()
         
-    }    
+    }
+    
+    var yet
     
     function setupEventListeners () {
-        getAllCells ().click (onClick)
-        $('body').keydown (onKey)
+        getAllCells ().unbind ('click').click (onClick)
+        if (!yet) $('body').keydown (onKey)
+        yet = true
     }    
     
     function checkOptions () {

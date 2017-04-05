@@ -28,6 +28,8 @@ define ([], function () {
                 $('main').empty ().append (view)
             }
             
+            use.lib ('tmilk/table-selector')
+            
         }
         
         $_F5 ()
@@ -35,9 +37,10 @@ define ([], function () {
         clickOn ($('button.create'), $_DO.create_user)
         
         $('.toolbar input').keyup (onEnterUseCurrentBlock)
-        $('.toolbar select').change (useCurrentBlock)
-
-        use.lib ('tmilk/table-selector')
+        $('.toolbar select').change (function () {
+            $(this).blur ()
+            useCurrentBlock ()
+        })
     
     }
         

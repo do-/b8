@@ -30,9 +30,11 @@ var drw; if (!drw) drw = {};
     
     }
     
-    $(function () {
+    var yet
 
-        $('body').keydown (function (e) {
+    $(function () {
+    
+        if (!yet) $('body').keydown (function (e) {
 
             var code = getKeyName (e.which);
 
@@ -52,6 +54,8 @@ var drw; if (!drw) drw = {};
             e.stopPropagation ()
 
         })
+        
+        yet = true
 
     })
     
