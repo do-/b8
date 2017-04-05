@@ -112,6 +112,50 @@ var drw; if (!drw) drw = {};
         
     }
     
+    function showItOnEnter (e) {
+        if (isEnterPressed (e)) showIt (e)
+    }
+
+    function showItAndBlur (e) {
+        $(this).blur ()
+        showIt (e)
+    }    
+
+    function toolbar_input (o) {
+        return $('<input class="widget" />')
+            .keyup (showItOnEnter)
+            .attr ({name: o.name})
+            .before (o.label + ': ')
+    }
+
+    function toolbar_select (o) {
+    
+        var s = $('<select class="widget" />')
+            .change (showItAndBlur)
+            .attr ({name: o.name})
+
+        for (var i = 0; i < o.values.length; i ++) 
+            $('<option>')
+            .text (o.values [i].label)
+            .attr ({value: o.values [i].id})
+            .appendTo (s)
+            
+        return s
+        
+    }
+    
+    function toolbar_widget (w) {
+        if (w.icon)   return drw.button (w)
+        if (w.values) return toolbar_select (w)
+        return toolbar_input (w)        
+    }
+        
+    drw.toolbar_widgets = function (tb, o, a) {
+    
+        for (var i = 0; i < a.length; i ++) tb.append (toolbar_widget (a [i]))
+    
+    }
+
     drw.form_buttons = function (tb, data, o) {
     
         if (data._read_only) {       

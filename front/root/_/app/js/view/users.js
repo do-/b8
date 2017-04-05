@@ -22,10 +22,35 @@ define ([], function () {
             var t = $(id)
             
             if (t.length) {
+            
                 t.replaceWith ($(id, view))
+                
             }
             else {
+            
                 $('main').empty ().append (view)
+                
+                drw.toolbar_widgets ($('.toolbar'), {}, [        
+                    {
+                        icon:    'create',
+                        label:   '&Добавить',
+                        onClick: $_DO.create_user
+                    },
+                    {
+                        label:   'Искать',
+                        name:    'q',                
+                    },
+                    {
+                        name:    'fake',
+                        values: [
+                            {id:      0, label: "Актуальные"},
+                            {id:     -1, label: "Удалённые"},
+                            {id: "-1,0", label: "Все"},
+                        ]
+                    },
+
+                ])
+
             }
             
             use.lib ('tmilk/table-selector')
@@ -33,12 +58,8 @@ define ([], function () {
         }
         
         $_F5 ()
-
-        clickOn ($('button.create'), $_DO.create_user)
         
-        $('.toolbar input').keyup (showItOnEnter)
-        $('.toolbar select').change (showItAndBlur)
-    
+ 
     }
         
 });

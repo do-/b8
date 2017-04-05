@@ -291,12 +291,3 @@ function showIt (e) {
     e.stopImmediatePropagation ()
     e.stopPropagation ()
 }
-
-function showItOnEnter (e) {
-    if (isEnterPressed (e)) showIt (e)
-}
-
-function showItAndBlur () {
-    $(this).blur ()
-    showIt ()
-}
