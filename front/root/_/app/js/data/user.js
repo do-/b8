@@ -5,7 +5,7 @@ define ([], function () {
         query ({                
             type:     'users',            
             action:   'update',
-        }, {data: values ($('.drw.form'))}, function (data) {use.block ('user')})
+        }, {data: values ($('.drw.form'))}, useCurrentBlock)
 
     }
 
@@ -16,8 +16,28 @@ define ([], function () {
             action:   'delete',
         }, {}, function (data) {
         
-            window.opener.location.reload ();
+            try {
+                window.opener.useCurrentBlock ();
+            } catch (e) {}
+            
             window.close ();
+        
+        })
+
+    }    
+    
+    $_DO.undelete_user = function () {
+
+        query ({                
+            type:     'users',            
+            action:   'undelete',
+        }, {}, function (data) {
+        
+            try {
+                window.opener.useCurrentBlock ();
+            } catch (e) {}
+            
+            useCurrentBlock ();
         
         })
 

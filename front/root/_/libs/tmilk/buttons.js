@@ -74,6 +74,11 @@ var drw; if (!drw) drw = {};
     
         var b = $('<button type=button/>')
         
+        if (o.onClick && o.question) {
+            var h = o.onClick
+            o.onClick = function () {if (confirm (o.question)) h ()}
+        }
+        
         drw.setOnClick (b, o)
         
         var amp = o.label.indexOf ('&')
@@ -98,9 +103,63 @@ var drw; if (!drw) drw = {};
         }
         
         if (o.icon) b.addClass ('icon').addClass (o.icon)
-                
+        
         return b
         
+    }
+    
+    drw.form_buttons = function (tb, data, o) {
+    
+        if (data._read_only) {       
+        
+            if (data.fake == 0) {
+            
+                tb.append (drw.button ({
+                    icon: 'edit',
+                    label: 'Редактировать',
+                    hotkey: 'F4',
+                    onClick: function () {$_F5 ({_read_only: false})}
+                }))
+
+                tb.append (drw.button ({
+                    icon: 'delete',
+                    label: 'Удалить',
+                    hotkey: 'Ctrl-Del',
+                    onClick: $_DO ['delete_' + $_REQUEST.type],
+                    question: 'Удалить эту запись?'
+                }))
+
+            }
+
+            if (data.fake == -1) tb.append (drw.button ({
+                icon: 'undelete',
+                label: 'Восстановить',
+                onClick: $_DO ['undelete_' + $_REQUEST.type],
+                question: 'Восстановить эту запись?'
+            }))
+
+        }
+        
+        else {
+        
+            tb.append (drw.button ({
+                icon: 'cancel',
+                label: 'Отменить',
+                hotkey: 'Esc',
+                onClick: function () {$_F5 ({_read_only: true})},
+                question: 'Отменить эту операцию?'
+            }))    
+
+            tb.append (drw.button ({
+                icon: 'ok',
+                label: 'Применить',
+                hotkey: 'Ctrl-Enter',
+                onClick: $_DO ['update_' + $_REQUEST.type],
+                question: 'Сохранить данные?'
+            }))
+        
+        }
+           
     }
 
 }) ()

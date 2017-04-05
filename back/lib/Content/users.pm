@@ -20,12 +20,12 @@ sub select_users {
 sub get_item_of_users {
 
 	my $data = sql ("users");
-	
+
 	delete $data -> {password};
 		
 	add_vocabularies ($data, 'roles');
 		
-	return $data;
+	$data;
 	
 }
 
@@ -79,6 +79,14 @@ sub do_create_users {
 sub do_delete_users {
 
 	sql_do ('UPDATE users SET fake = -1 WHERE id = ?', $_REQUEST {id});
+	
+}
+
+################################################################################
+
+sub do_undelete_users {
+
+	sql_do ('UPDATE users SET fake = 0 WHERE id = ?', $_REQUEST {id});
 	
 }
 

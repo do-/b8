@@ -14,11 +14,13 @@ define ([], function () {
     
         user = data.content
         
-        user._read_only = (user.fake == 0)
-            
+        user._read_only = (user.fake <= 0)
+
         $('title').text (user.fake > 0 ? 'Новый пользователь' : user.label)
                 
-        $_F5 = function () {
+        $_F5 = function (over) {
+        
+            user = $.extend (user, over)
 
             $('main').empty ().append (fill (view.clone (), user))
 
@@ -26,8 +28,10 @@ define ([], function () {
                 recalc_span_password2 (); i_password ().keyup (recalc_span_password2)            
                 $('input:first').focus ()
                 $('input').keyup (onEnterGoToNextInput)
-            }            
-
+            }
+            
+            drw.form_buttons ($('.toolbar'), user, {})
+/*
             clickOn ($('button.edit'),   function () {user._read_only = false; $_F5 ()})
             clickOn ($('button.delete'), $_DO.delete_user)
             clickOn ($('button.cancel'), function () {
@@ -42,7 +46,7 @@ define ([], function () {
 
             clickOn ($('button.close'),  function () {window.close ()})
             clickOn ($('button.ok'),     $_DO.update_user)
-
+*/
         }
 
         $_F5 ()            

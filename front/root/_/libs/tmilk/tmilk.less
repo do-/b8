@@ -56,12 +56,24 @@ span.drw {
 	button.icon.notify:before   { background-position: -0px  -32px }
 	button.icon.options:before  { background-position: -16px -32px }
 	button.icon.print:before    { background-position: -32px -32px }
-	button.icon.restore:before  { background-position: -48px -32px }
+	button.icon.undelete:before { background-position: -48px -32px }
 
 	button.icon.tv_0:before     { background-position: -0px  -48px }
 	button.icon.tv_1:before     { background-position: -16px -48px }
 	button.icon.calendar:before { background-position: -32px -48px }
 	button.icon.right:before    { background-position: -48px -48px }
+
+}
+
+span[data-deleted] {
+
+	th {
+		background: hsl(0, 0%, 53%) !important;
+	}
+
+	td {
+		background: hsl(@hue-form, 100%, 59%) !important;
+	}
 
 }
 
