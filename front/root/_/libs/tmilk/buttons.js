@@ -138,6 +138,14 @@ var drw; if (!drw) drw = {};
                 question: 'Восстановить эту запись?'
             }))
 
+            tb.append (drw.button ({
+                icon: 'close',
+                label: 'Закрыть',
+                hotkey: 'Esc',
+                onClick: window.close,
+                question: 'Закрыть эту вкладку?'
+            }))
+
         }
         
         else {
