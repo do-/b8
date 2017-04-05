@@ -291,3 +291,7 @@ function showIt (e) {
     e.stopImmediatePropagation ()
     e.stopPropagation ()
 }
+
+function refreshOpener () {
+    try {window.opener.showIt ()} catch (e) {}
+}
