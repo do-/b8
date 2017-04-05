@@ -186,6 +186,8 @@ function fill (jq, data) {
 
     }
 
+    if (data.fake == -1) jq.attr ('data-deleted', 1)
+
     eachAttr (jq, 'data-list',   data, function (me, n, v) {
     
         if (!v) {
