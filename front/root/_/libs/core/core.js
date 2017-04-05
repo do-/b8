@@ -106,6 +106,9 @@ function values (jq) {
         if (!$_REQUEST._secret) $_REQUEST._secret = []
         $_REQUEST._secret.push (this.name)
     })
+    $('select', jq).each (function () {
+        o[this.name] = $(this).val ()
+    })
     return o
 }
 
