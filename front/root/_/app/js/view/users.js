@@ -16,14 +16,26 @@ define ([], function () {
             }
 
             fill (view, data.content)
-
-            $('main').empty ().append (view)
+            
+            var id = '#users-table'
+            
+            var t = $(id)
+            
+            if (t.length) {
+                t.replaceWith ($(id, view))
+            }
+            else {
+                $('main').empty ().append (view)
+            }
             
         }
         
         $_F5 ()
 
         clickOn ($('button.create'), $_DO.create_user)
+        
+        $('.toolbar input').keyup (onEnterUseCurrentBlock)
+        $('.toolbar select').change (useCurrentBlock)
 
         use.lib ('tmilk/table-selector')
     

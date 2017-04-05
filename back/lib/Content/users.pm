@@ -2,38 +2,16 @@
 
 sub select_users {
 	
-	my $item = {
-		portion => $conf -> {portion},
-		__this_content_is_ok_to_be_shown_completely => 1,
-	};
+	my $q = $_REQUEST {search};
 	
-	my $filter = '';
-	my @params = ();
+	my $data = {};
 	
-	if ($_REQUEST {q}) {		
-		$filter .= ' AND users.label LIKE ?';
-		push @params, '%' . $_REQUEST {q} . '%';		
-	}
-
-	my $start = $_REQUEST {start} + 0;
-
-	($item -> {users}, $item -> {cnt}) = sql_select_all_cnt (<<EOS, @params, {fake => 'users'});
-		SELECT
-			users.*
-			, roles.label AS role_label
-		FROM
-			users
-			LEFT JOIN roles ON users.id_role = roles.id
-		WHERE
-			1=1
-			$filter
-		ORDER BY
-			users.label
-		LIMIT
-			$start, $$item{portion}
-EOS
-
-	return $item;
+	sql ($data, users => [
+		['label LIKE %?%' => $q -> {q}],
+		[fake             => [split ',', $q -> {fake}]],		
+	], 'roles');
+	
+	$data;
 
 }
 

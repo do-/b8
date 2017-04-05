@@ -19,7 +19,7 @@ function draw_page () {
             
     if (!$_REQUEST.type) redirect ('/users/')
     
-    use.block ($_REQUEST.type)
+    useCurrentBlock ()
 
 }
 

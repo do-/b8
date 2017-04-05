@@ -264,12 +264,29 @@ function clickOff (jq) {
     jq.toggleClass ('clickable', false).unbind ('click')
 }
 
+function isEnterPressed (e) {
+    if (e.which != 13) return false
+    if (e.ctrlKey) return false
+    if (e.altKey) return false
+    if (e.shiftKey) return false
+    return true
+}
+
 function onEnterGoToNextInput (e) {
-    if (e.which != 13) return
-    if (e.ctrlKey) return
-    if (e.altKey) return
-    if (e.shiftKey) return
+    if (!isEnterPressed (e)) return
     var inputs = $('input')
     var i = inputs.index ($(this))
     inputs.eq (i + 1).focus ()
+}
+
+function useCurrentBlock (e) {
+    use.block ($_REQUEST.type)
+    if (!e) return
+    e.preventDefault ()
+    e.stopImmediatePropagation ()
+    e.stopPropagation ()
+}
+
+function onEnterUseCurrentBlock (e) {
+    if (isEnterPressed (e)) useCurrentBlock (e)
 }
