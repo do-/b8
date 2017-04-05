@@ -7,7 +7,7 @@ define ([], function () {
         $('body').empty ().append (view)
         
         clickOn ($('button.logout'), $_DO.execute_logout)
-        clickOn ($('button[data-hotkey=F5]').hide (), useCurrentBlock)
+        clickOn ($('button[data-hotkey=F5]').hide (), showIt)
         
         use.block ('clock')
         use.block ('auth_toolbar_user')

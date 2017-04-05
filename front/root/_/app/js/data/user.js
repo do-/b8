@@ -5,7 +5,7 @@ define ([], function () {
         query ({                
             type:     'users',            
             action:   'update',
-        }, {data: values ($('.drw.form'))}, useCurrentBlock)
+        }, {data: values ($('.drw.form'))}, showIt)
 
     }
 
@@ -17,7 +17,7 @@ define ([], function () {
         }, {}, function (data) {
         
             try {
-                window.opener.useCurrentBlock ();
+                window.opener.showIt ();
             } catch (e) {}
             
             window.close ();
@@ -34,10 +34,10 @@ define ([], function () {
         }, {}, function (data) {
         
             try {
-                window.opener.useCurrentBlock ();
+                window.opener.showIt ();
             } catch (e) {}
             
-            useCurrentBlock ();
+            showIt ();
         
         })
 

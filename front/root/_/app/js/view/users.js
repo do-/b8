@@ -36,11 +36,8 @@ define ([], function () {
 
         clickOn ($('button.create'), $_DO.create_user)
         
-        $('.toolbar input').keyup (onEnterUseCurrentBlock)
-        $('.toolbar select').change (function () {
-            $(this).blur ()
-            useCurrentBlock ()
-        })
+        $('.toolbar input').keyup (showItOnEnter)
+        $('.toolbar select').change (showItAndBlur)
     
     }
         

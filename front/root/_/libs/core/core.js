@@ -284,7 +284,7 @@ function onEnterGoToNextInput (e) {
     inputs.eq (i + 1).focus ()
 }
 
-function useCurrentBlock (e) {
+function showIt (e) {
     use.block ($_REQUEST.type)
     if (!e) return
     e.preventDefault ()
@@ -292,6 +292,11 @@ function useCurrentBlock (e) {
     e.stopPropagation ()
 }
 
-function onEnterUseCurrentBlock (e) {
-    if (isEnterPressed (e)) useCurrentBlock (e)
+function showItOnEnter (e) {
+    if (isEnterPressed (e)) showIt (e)
+}
+
+function showItAndBlur () {
+    $(this).blur ()
+    showIt ()
 }
