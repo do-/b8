@@ -32,23 +32,24 @@ var drw; if (!drw) drw = {};
     
     $(function () {
 
-        $('body').keyup (function (e) {
+        $('body').keydown (function (e) {
 
             var code = getKeyName (e.which);
-            
+
             if (!code) return;
             
             if (e.altKey)  code = 'Alt-'  + code
             if (e.ctrlKey) code = 'Ctrl-' + code
-            
+
             var b = $("button[data-hotkey='" + code + "']")
-            
+
             if (!b || !b.length) return
             
             b.click ()
             
             e.preventDefault ()
             e.stopImmediatePropagation ()
+            e.stopPropagation ()
 
         })
 

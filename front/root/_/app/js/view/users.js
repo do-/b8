@@ -1,19 +1,27 @@
 define ([], function () {
 
+    var users
+
     return function (data, view) {
             
         $('title').text ('Пользователи')
         
-        var users = data.content.users
+        users = data.content.users
+                
+        $_F5 = function () {
         
-        for (var i = 0; i < users.length; i ++) {
-            var user = users [i]
-            user.uri = '/user/' + user.id
+            for (var i = 0; i < users.length; i ++) {
+                var user = users [i]
+                user.uri = '/user/' + user.id
+            }
+
+            fill (view, data.content)
+
+            $('main').empty ().append (view)
+            
         }
         
-        fill (view, data.content)
-    
-        $('main').empty ().append (view)
+        $_F5 ()
 
         clickOn ($('button.create'), $_DO.create_user)
 

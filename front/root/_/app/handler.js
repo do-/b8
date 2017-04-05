@@ -5,6 +5,8 @@ requirejs.config({
     }
 });
 
+var $_F5
+
 function draw_page () {
 
     setup_user    ()
