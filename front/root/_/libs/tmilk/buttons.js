@@ -148,15 +148,7 @@ var drw; if (!drw) drw = {};
 
         }
         
-        else {
-        
-            tb.append (drw.button ({
-                icon: 'cancel',
-                label: 'Отменить',
-                hotkey: 'Esc',
-                onClick: function () {$_F5 ({_read_only: true})},
-                question: 'Отменить эту операцию?'
-            }))    
+        else {               
 
             tb.append (drw.button ({
                 icon: 'ok',
@@ -166,6 +158,14 @@ var drw; if (!drw) drw = {};
                 question: 'Сохранить данные?'
             }))
         
+            tb.append (drw.button ({
+                icon: 'cancel',
+                label: 'Отменить',
+                hotkey: 'Esc',
+                onClick: data.fake > 0 ? window.close : function () {$_F5 ({_read_only: true})},
+                question: 'Отменить эту операцию?'
+            }))    
+            
         }
            
     }
