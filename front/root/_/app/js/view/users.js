@@ -30,24 +30,20 @@ define ([], function () {
             
                 $('main').empty ().append (view)
                 
-                drw.toolbar_widgets ($('.toolbar'), {}, [        
+                drw.toolbar_widgets ($('.toolbar'), {}, [
+                
                     {
                         icon:    'create',
                         label:   '&Добавить',
                         onClick: $_DO.create_user
                     },
+                    
                     {
                         label:   'Искать',
                         name:    'q',                
                     },
-                    {
-                        name:    'fake',
-                        values: [
-                            {id:      0, label: "Актуальные"},
-                            {id:     -1, label: "Удалённые"},
-                            {id: "-1,0", label: "Все"},
-                        ]
-                    },
+                    
+                    'fake_select'
 
                 ])
 

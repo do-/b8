@@ -145,9 +145,22 @@ var drw; if (!drw) drw = {};
     }
     
     function toolbar_widget (w) {
+
+        if (w == 'fake_select') return toolbar_select ({
+            name:    'fake',
+            values: [
+                {id:      0, label: "Актуальные"},
+                {id:     -1, label: "Удалённые"},
+                {id: "-1,0", label: "Все"},
+            ]
+        })
+
         if (w.icon)   return drw.button (w)
+
         if (w.values) return toolbar_select (w)
+
         return toolbar_input (w)        
+
     }
         
     drw.toolbar_widgets = function (tb, o, a) {
