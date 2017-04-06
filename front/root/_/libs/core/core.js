@@ -158,7 +158,7 @@ function query (tia, data, done, fail) {
     })
     
     .fail (function (jqXHR, e) {
-                
+
         if (jqXHR.status == 401) {
             sessionStorage.clear ()
             location.reload ()
@@ -169,7 +169,12 @@ function query (tia, data, done, fail) {
         else {
             if (fail) return fail ()
             console.log (jqXHR, e)
-            alert ('Error')
+            if (jqXHR.responseJSON && jqXHR.responseJSON.id) {
+                alert ('На сервере произошла ошибка. Запишите, пожалуйста, её номер для обращения в службу поддержки: ' + jqXHR.responseJSON.id)
+            }
+            else {
+                alert ('Error')
+            }
         }    
     
     })

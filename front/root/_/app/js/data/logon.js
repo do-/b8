@@ -10,7 +10,7 @@ define ([], function () {
         
             function (data) {
 
-                var d = data.data
+                var d = data.content
 
                 if (d && d.success) {
                     $_SESSION.set ('user', d.user)
