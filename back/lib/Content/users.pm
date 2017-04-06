@@ -9,6 +9,7 @@ sub select_users {
 	sql ($data, 'users(id, fake, label, login)' => [
 		['label LIKE %?%' => $q -> {q}],
 		[fake             => [split ',', $q -> {fake}]],		
+		[ORDER            => 'label'],
 	], 'roles');
 	
 	$data;
