@@ -215,7 +215,38 @@ var drw; if (!drw) drw = {};
                 icon: 'ok',
                 label: 'Применить',
                 hotkey: 'Ctrl-Enter',
-                onClick: $_DO ['update_' + $_REQUEST.type],
+                onClick: function () {
+
+                    try { 
+
+                        $_DO ['update_' + $_REQUEST.type] ()
+
+                    }
+                    
+                    catch (e) {
+
+                        if (typeof e === 'string' || e instanceof String) {
+                        
+                            if (e.match (/^core\.ok\./)) {
+                                // do nothing
+                            }
+                            else {                            
+                                var m = /^#(.*?)#:(.*)/.exec (e)
+                                if (m) {
+                                    $('input[name=' + m [1] + ']').focus ()
+                                    alert (m [2])
+                                }
+                                else throw e
+                            }
+                        
+                        }
+                        else {
+                            throw e
+                        }
+                    
+                    }
+                    
+                },
                 question: 'Сохранить данные?'
             }))
         
