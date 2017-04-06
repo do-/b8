@@ -6,7 +6,7 @@ define ([], function () {
             
         $('title').text ('Пользователи')
         
-        users = data.content.users
+        users = data.users
                 
         $_F5 = function () {
         
@@ -15,7 +15,7 @@ define ([], function () {
                 user.uri = '/user/' + user.id
             }
 
-            fill (view, data.content)
+            fill (view, data)
             
             var id = '#users-table'
             

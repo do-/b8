@@ -12,7 +12,7 @@ define ([], function () {
 
     return function (data, view) {
     
-        user = data.content
+        user = data
         
         user._read_only = (user.fake <= 0)
                 

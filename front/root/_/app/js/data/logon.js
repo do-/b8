@@ -6,7 +6,7 @@ define ([], function () {
         
             {type: 'sessions', action: 'create'}, {data: values ($('.logon.form'))}, function (data) {
 
-                var d = data.content
+                var d = data
 
                 if (d && d.success) {
                     $_SESSION.set ('user', d.user)

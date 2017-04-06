@@ -4,7 +4,7 @@ define ([], function () {
 
         query ({action: 'create'}, {}, function (data) {        
             
-            var uri = '/user/' + data.data.id        
+            var uri = '/user/' + data.id
         
             openTab (uri, uri)        
         

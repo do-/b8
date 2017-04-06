@@ -147,12 +147,12 @@ function query (tia, data, done, fail) {
 
     .done (function (data) {
         
-        if (data.message) {            
+        if (!data.success) {
             if (data.field) $('input[name=' + data.field + ']').focus ()
-            alert (data.message)
+            if (data.message) alert (data.message)
         }
         else {
-            done (data)
+            done (data.content)
         }
     
     })
