@@ -45,6 +45,8 @@ sub check_session {
 	
 		$_REQUEST {sid} = sql_select_scalar ("SELECT id FROM sessions WHERE client_cookie = ?", $c -> value);
 		
+		keep_alive ($_REQUEST {sid});
+
 		our $_USER = get_user ();
 
 	}
@@ -93,16 +95,7 @@ sub handle_valid_request {
 
 		check_session (); $r -> status () eq 200 or return;
 
-		if ($_REQUEST {type}) {
-		
-			$page -> {content} = get_page_data ();
-		
-		}
-		else {
-
-			keep_alive ($_REQUEST {sid});
-
-		}
+		$page -> {content} = get_page_data () if $_REQUEST {type};
 
 	};
 	
