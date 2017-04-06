@@ -51,10 +51,15 @@ requirejs (['jquery/jquery-3.1.1.min', 'less/less.min', 'core/core'], function (
 
     }
     catch (e) {
-        darn (e)
-//        if (!e.match (/^core\.ok\./)) darn (e)
-    }
     
+        if ((typeof e === 'string' || e instanceof String) && e.match (/^core\.ok\./)) {
+            // do nothing
+        }
+        else {
+            darn (e)
+        }
+        
+    }    
 
 });
 

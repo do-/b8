@@ -99,17 +99,32 @@ use.block = function (name) {
 }
 
 function values (jq) {
+
     var o = {}
+    
+    $('input[required]', jq).each (function () {    
+        var me = $(this)
+        if (me.val ()) return true
+        me.focus ()
+        alert ('Вы забыли заполнить обязательное поле')
+        throw 'core.ok.validation_error'
+    })
+    
     var a = jq.clone ().wrap ('<form/>').parent ().serializeArray ()
+    
     for (var i = 0; i < a.length; i ++) o[a[i].name] = a[i].value.trim ()
-    $('input[type=password]', jq).each (function () {
+    
+    $('input[type=password]', jq).each (function () {    
         if (!$_REQUEST._secret) $_REQUEST._secret = []
         $_REQUEST._secret.push (this.name)
     })
+    
     $('select', jq).each (function () {
         o[this.name] = $(this).val ()
     })
+    
     return o
+
 }
 
 function query (tia, data, done, fail) {
