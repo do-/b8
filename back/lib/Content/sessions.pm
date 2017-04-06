@@ -2,6 +2,8 @@
 
 sub do_create_sessions {
 
+	my $d = $_REQUEST {data};
+
 	my $data = {
 	
 		success => \1, 
@@ -9,7 +11,7 @@ sub do_create_sessions {
 		timeout => sql_sessions_timeout_in_minutes (),
 		
 		user    => sql (users => [
-			[login => $_REQUEST {login}],
+			[login => $d -> {login}],
 			[fake  => [0, -1]],
 			[LIMIT => 1],
 		]),
@@ -18,7 +20,7 @@ sub do_create_sessions {
 	
 	if (!$data -> {user} -> {id}) {
 	
-		warn "Non-existing login entered: $_REQUEST{login}\n";
+		warn "Non-existing login entered: $d->{login}\n";
 
 		return undef;
 	
@@ -26,17 +28,17 @@ sub do_create_sessions {
 	
 	if ($data -> {user} -> {fake} != 0) {
 	
-		warn "An attempt to use deleted login detected: $_REQUEST{login}\n";
+		warn "An attempt to use deleted login detected: $d->{login}\n";
 
 		return undef;
 	
 	}
 
-	my $hash = password_hash ($data -> {user} -> {salt}, $_REQUEST {password});
+	my $hash = password_hash ($data -> {user} -> {salt}, $d -> {password});
 
 	if ($hash ne $data -> {user} -> {password}) {
 	
-		warn "Wrong password entered for $_REQUEST{login}\n";
+		warn "Wrong password entered for $d->{login}\n";
 	
 		return undef;
 	
@@ -46,7 +48,7 @@ sub do_create_sessions {
 
 	start_session ($data -> {user} -> {id});
 
-	set_cookie (-name => 'login', -value => $_REQUEST {-login}, -httponly => 1, -path => '/_back');
+	set_cookie (-name => 'login', -value => $d -> {login}, -httponly => 1, -path => '/_back');
 
        	$data;
 

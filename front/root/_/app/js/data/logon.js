@@ -4,11 +4,7 @@ define ([], function () {
     
         query (
         
-            {type: 'sessions', action: 'create'},
-        
-            values ($('.logon.form')),
-        
-            function (data) {
+            {type: 'sessions', action: 'create'}, {data: values ($('.logon.form'))}, function (data) {
 
                 var d = data.content
 

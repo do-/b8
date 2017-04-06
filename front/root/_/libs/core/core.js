@@ -129,8 +129,8 @@ function query (tia, data, done, fail) {
     if ($_REQUEST._secret) {
         for (var i = 0; i < $_REQUEST._secret.length; i ++) {
             var name = $_REQUEST._secret [i]
-            headers ['X-Request-Param-' + name] = encodeURIComponent (data [name])
-            delete data [name]
+            headers ['X-Request-Param-' + name] = encodeURIComponent (data.data [name])
+            delete data.data [name]
         }
         delete $_REQUEST._secret
     }
