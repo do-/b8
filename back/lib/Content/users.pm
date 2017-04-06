@@ -8,6 +8,7 @@ sub select_users {
 	
 	sql ($data, 'users(id, fake, label, login)' => [
 		['label LIKE %?%' => $q -> {q}],
+		[login            => $q -> {login}],
 		[fake             => [split ',', $q -> {fake}]],		
 		[ORDER            => 'label'],
 	], 'roles');
@@ -34,6 +35,8 @@ sub get_item_of_users {
 
 sub do_update_users {
 
+	my $old = sql ("users");
+
 	my $data = $_REQUEST {data};
 	
 	$data -> {f} =~ /^[А-ЯЁ][а-яё]+$/ or die "#f#:Некорректная фамилия";
@@ -45,6 +48,12 @@ sub do_update_users {
 	$data -> {id_role} or die "#id_role#:Вы забыли указать роль";	
 	$data -> {login}   or die "#login#:Вы забыли указать login";
 	
+	if ($data -> {login} ne $old -> {login}) {
+		sql_do ('DELETE FROM logins WHERE id = ?', $old -> {login});
+		eval {sql_do ('INSERT INTO logins (id) VALUES (?)', $data -> {login})};
+		$@ and die "#_login#:Login '$data->{login}' уже занят";
+	}
+
 	my $p2 = delete $data -> {password2};
 	
 	if ($data -> {password}) {
@@ -57,8 +66,6 @@ sub do_update_users {
 	else {
 		delete $data -> {password};
 	}
-
-#	vld_unique ('users', {field => 'login'}) or die "#_login#:Login '$_REQUEST{_login}' уже занят";
 	
 	$data -> {fake} = 0;
 	$data -> {id}   = $_REQUEST {id};
@@ -79,13 +86,23 @@ sub do_create_users {
 
 sub do_delete_users {
 
-	sql_do ('UPDATE users SET fake = -1 WHERE id = ?', $_REQUEST {id});
+	my $data = sql ("users");
+
+	sql_do ('UPDATE users SET fake = -1 WHERE id = ?', $data -> {id});
 	
+	sql_do ('DELETE FROM logins WHERE id = ?', $data -> {login});
+
 }
 
 ################################################################################
 
 sub do_undelete_users {
+
+	my $data = sql ("users");
+
+	eval {sql_do ('INSERT INTO logins (id) VALUES (?)', $data -> {login})};
+	
+	$@ and die "#_login#:Login '$data->{login}' в настоящее время занят";
 
 	sql_do ('UPDATE users SET fake = 0 WHERE id = ?', $_REQUEST {id});
 	

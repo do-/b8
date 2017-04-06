@@ -124,7 +124,10 @@ var drw; if (!drw) drw = {};
     function toolbar_input (o) {
         return $('<input class="widget" />')
             .keyup (showItOnEnter)
-            .attr ({name: o.name})
+            .attr ({
+                name: o.name,
+                placeholder: o.label
+            })
             .before (o.label + ': ')
     }
 

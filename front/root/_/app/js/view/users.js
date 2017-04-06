@@ -39,8 +39,12 @@ define ([], function () {
                     },
                     
                     {
-                        label:   'Искать',
+                        label:   'ФИО',
                         name:    'q',                
+                    },
+                    {
+                        label:   'Login',
+                        name:    'login',                
                     },
                     
                     'fake_select'
