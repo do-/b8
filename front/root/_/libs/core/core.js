@@ -101,7 +101,7 @@ use.block = function (name) {
 function values (jq) {
 
     var o = {}
-    
+
     $('input[required]', jq).each (function () {    
         var me = $(this)
         if (me.val ()) return true
@@ -109,9 +109,20 @@ function values (jq) {
         alert ('Вы забыли заполнить обязательное поле')
         throw 'core.ok.validation_error'
     })
+
+    $('input[pattern]', jq).each (function () {    
+        var me = $(this)
+        var re = new RegExp (me.attr ('pattern'));
+        if (re.test (me.val ())) return true
+        me.focus ()
+        alert ('Введено недопустимое значение')
+        throw 'core.ok.validation_error'
+    })
+
+    var form = jq.clone ().wrap ('<form/>').parent ()
     
-    var a = jq.clone ().wrap ('<form/>').parent ().serializeArray ()
-    
+    var a = form.serializeArray ()
+        
     for (var i = 0; i < a.length; i ++) o[a[i].name] = a[i].value.trim ()
     
     $('input[type=password]', jq).each (function () {    
