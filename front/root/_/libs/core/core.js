@@ -101,7 +101,7 @@ use.block = function (name) {
 function values (jq) {
     var o = {}
     var a = jq.clone ().wrap ('<form/>').parent ().serializeArray ()
-    for (var i = 0; i < a.length; i ++) o[a[i].name] = a[i].value
+    for (var i = 0; i < a.length; i ++) o[a[i].name] = a[i].value.trim ()
     $('input[type=password]', jq).each (function () {
         if (!$_REQUEST._secret) $_REQUEST._secret = []
         $_REQUEST._secret.push (this.name)
