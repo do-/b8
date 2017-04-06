@@ -36,7 +36,7 @@ sub do_create_sessions {
 
 	if ($hash ne $data -> {user} -> {password}) {
 	
-		warn "Wrong password entered for $_REQUEST{-login}\n";
+		warn "Wrong password entered for $_REQUEST{login}\n";
 	
 		return undef;
 	
