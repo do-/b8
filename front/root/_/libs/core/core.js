@@ -158,14 +158,16 @@ function query (tia, data, done, fail) {
     })
     
     .fail (function (jqXHR, e) {
-    
-        if (fail) return fail ()
-    
+                
         if (jqXHR.status == 401) {
             sessionStorage.clear ()
             location.reload ()
         } 
+        else if (jqXHR.status == 504) {
+            location.href = '/_maintenance/'
+        } 
         else {
+            if (fail) return fail ()
             console.log (jqXHR, e)
             alert ('Error')
         }    
