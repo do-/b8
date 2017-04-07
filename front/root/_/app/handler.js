@@ -7,6 +7,29 @@ requirejs.config({
 
 var $_F5
 
+function setUri (data, type) {
+
+    if (!type) type = en_unplural ($_REQUEST.type)
+
+    if ($.isArray (data)) {
+        for (var i = 0; i < data.length; i ++) setUri (data [i], type)
+    }
+    else {
+        if (data.id) data.uri = '/' + type + '/' + data.id
+    }
+
+}
+
+function checkList (data, name) {
+
+    var list = data [name]
+    
+    setUri (list)
+    
+    if (list.length > data.portion) list.splice (list.length - 1, 1, {id: 'next'})
+    
+}
+
 function draw_page () {
 
     setup_user    ()

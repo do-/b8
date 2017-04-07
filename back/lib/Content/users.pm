@@ -14,12 +14,8 @@ sub select_users {
 		[LIMIT            => [0 + $q -> {start}, $conf -> {portion} + 1]],
 	], 'roles');
 	
-	if (@{$data -> {users}} > $conf -> {portion}) {
-	
-		$data -> {users} -> [-1] = {label => '...'}
-	
-	}
-	
+	$data -> {portion} = $conf -> {portion};
+		
 	$data;
 
 }
