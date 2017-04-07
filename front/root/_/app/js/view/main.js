@@ -11,8 +11,6 @@ define ([], function () {
         
         use.block ('clock')
         use.block ('auth_toolbar_user')
-
-        require (['tmilk/buttons'])        
         
     }
         

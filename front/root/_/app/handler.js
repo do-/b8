@@ -19,6 +19,8 @@ function draw_page () {
             
     if (!$_REQUEST.type) redirect ('/users/')
     
+    require (['tmilk/buttons'])    
+    
     showIt ()
 
 }
