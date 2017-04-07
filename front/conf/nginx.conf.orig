@@ -6,11 +6,6 @@ upstream  b8_fcgi {
     server   127.0.0.1:9000;
 }
 
-# back end HTTP server reference for using in frontend
-upstream b8_back {
-    server   127.0.0.1:8010;
-}
-
 # front end HTTP server
 server {    
     listen  8011;
