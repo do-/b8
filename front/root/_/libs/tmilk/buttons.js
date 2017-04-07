@@ -40,15 +40,25 @@ var drw; if (!drw) drw = {};
 
             if (!code) return;
             
-            if (e.altKey)  code = 'Alt-'  + code
-            if (e.ctrlKey) code = 'Ctrl-' + code
-
-            var b = $("button[data-hotkey='" + code + "']")
-
-            if (!b || !b.length) return
+            if (code == 'F5' || (code == 'R' && e.ctrlKey)) {
             
-            b.click ()
+                resetStart ()
+                showIt (e)
             
+            }
+            else {
+
+                if (e.altKey)  code = 'Alt-'  + code
+                if (e.ctrlKey) code = 'Ctrl-' + code
+
+                var b = $("button[data-hotkey='" + code + "']")
+
+                if (!b || !b.length) return
+
+                b.click ()
+
+            }
+                        
             e.preventDefault ()
             e.stopImmediatePropagation ()
             e.stopPropagation ()
@@ -112,17 +122,23 @@ var drw; if (!drw) drw = {};
         
     }
     
+    function resetStart () {
+        $('input[name=start]').val (0)
+    }
+    
     function showItOnEnter (e) {
         if (isEnterPressed (e)) showIt (e)
     }
 
     function showItAndBlur (e) {
         $(this).blur ()
+        resetStart ()
         showIt (e)
     }    
 
     function toolbar_input (o) {
         return $('<input class="widget" />')
+            .keypress (resetStart)
             .keyup (showItOnEnter)
             .attr ({
                 name: o.name,
@@ -167,6 +183,8 @@ var drw; if (!drw) drw = {};
     }
         
     drw.toolbar_widgets = function (tb, o, a) {
+    
+        $('<input name=start type=hidden value=0>').appendTo (tb)
     
         for (var i = 0; i < a.length; i ++) tb.append (toolbar_widget (a [i]))
     

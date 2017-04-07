@@ -142,11 +142,33 @@ define ([], function () {
         
     }
     
+    function checkNext (e) {
+
+        var tr = $('tr[data-id=next]').removeAttr ('data-id');
+                
+        if (!tr.length) return
+                
+        var offset = tr.offset ().top - $(window).scrollTop ()
+                
+        if (offset > window.innerHeight) return tr.attr ('data-id', 'next')
+
+        $('input[name=start]').val (tr.prevAll ().length)
+        
+        tr.remove ()
+                
+        showIt ()
+
+    }
+    
     var yet
     
     function setupEventListeners () {
         getAllCells ().unbind ('click').click (onClick)
-        if (!yet) $('body').keydown (onKey)
+        if (!yet) {
+            $('body').keydown (onKey)
+            $(window).scroll (checkNext).resize (checkNext)
+        }
+        checkNext ()
         yet = true
     }    
     

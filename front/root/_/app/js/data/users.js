@@ -14,7 +14,9 @@ define ([], function () {
 
     return function (done) {
     
-        query ({}, {search: values ($('.toolbar'))}, done)
+        query ({}, {
+            search: values ($('.toolbar')),
+        }, done)
         
     }
         

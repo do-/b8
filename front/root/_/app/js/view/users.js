@@ -12,7 +12,13 @@ define ([], function () {
         
             for (var i = 0; i < users.length; i ++) {
                 var user = users [i]
-                user.uri = '/user/' + user.id
+                if (user.id) {
+                    user.uri = '/user/' + user.id
+                    delete user.id
+                }
+                else {
+                    user.id = 'next'
+                }
             }
 
             fill (view, data)
@@ -23,8 +29,12 @@ define ([], function () {
             
             if (t.length) {
             
-                t.replaceWith ($(id, view))
-                
+                var tbody = $('tbody', t)
+            
+                if ($('input[name=start]').val () == 0) tbody.empty ()
+                                
+                tbody.append ($('tbody', view).children ())
+
             }
             else {
             
@@ -51,7 +61,7 @@ define ([], function () {
 
                 ])
 
-            }
+            }            
             
             use.lib ('tmilk/table-selector')
             
