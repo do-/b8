@@ -214,7 +214,15 @@ function fill (jq, data) {
         jq.find ('*').addBack ().filter ('[' + a + ']').each (function () {
             var me   = $(this)
             var name = me.attr (a)
-            todo (me.removeAttr (a), name, data [name])
+            var names = name.split ('.')
+            var d = data
+            for (var i = 0; i < names.length; i ++) {
+                d = d [names [i]]
+                if (d) continue
+                d = ''
+                break
+            }
+            todo (me.removeAttr (a), name, d)
         })
 
     }
