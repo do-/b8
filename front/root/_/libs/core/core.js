@@ -215,14 +215,19 @@ function fill (jq, data) {
             var me   = $(this)
             var name = me.attr (a)
             var names = name.split ('.')
-            var d = data
-            for (var i = 0; i < names.length; i ++) {
-                d = d [names [i]]
-                if (d) continue
-                d = ''
-                break
+            if (names.length == 1) {
+                todo (me.removeAttr (a), name, data [name])
             }
-            todo (me.removeAttr (a), name, d)
+            else {
+                var d = data
+                for (var i = 0; i < names.length; i ++) {
+                    d = d [names [i]]
+                    if (d) continue
+                    d = ''
+                    break
+                }
+                todo (me.removeAttr (a), name, d)
+            }
         })
 
     }
