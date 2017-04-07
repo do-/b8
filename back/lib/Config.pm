@@ -2,7 +2,7 @@ use Digest::SHA;
 
 our $conf = {
 	
-	portion => 15,
+	portion => 2,
 	session_timeout => 1,
 		
 	core_recycle_ids => 0,

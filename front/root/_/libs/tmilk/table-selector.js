@@ -153,8 +153,8 @@ define ([], function () {
         if (offset > window.innerHeight) return tr.attr ('data-id', 'next')
 
         $('input[name=start]').val (tr.prevAll ().length)
-        
-        tr.remove ()
+
+        tr.remove ()        
                 
         showIt ()
 

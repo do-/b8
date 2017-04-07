@@ -28,10 +28,17 @@ define ([], function () {
             var t = $(id)
             
             if (t.length) {
-            
+                        
                 var tbody = $('tbody', t)
+                
+                var start = $('input[name=start]')
             
-                if ($('input[name=start]').val () == 0) tbody.empty ()
+                if (start.val () == 0) {
+                    tbody.empty ()
+                }
+                else {
+                    start.val (0)                
+                }                
                                 
                 tbody.append ($('tbody', view).children ())
 

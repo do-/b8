@@ -11,7 +11,14 @@ sub select_users {
 		[login            => $q -> {login}],
 		[fake             => [split ',', $q -> {fake}]],		
 		[ORDER            => 'label'],
+		[LIMIT            => [0 + $q -> {start}, $conf -> {portion} + 1]],
 	], 'roles');
+	
+	if (@{$data -> {users}} > $conf -> {portion}) {
+	
+		$data -> {users} -> [-1] = {label => '...'}
+	
+	}
 	
 	$data;
 

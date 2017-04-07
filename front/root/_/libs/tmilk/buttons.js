@@ -42,7 +42,7 @@ var drw; if (!drw) drw = {};
             
             if (code == 'F5' || (code == 'R' && e.ctrlKey)) {
             
-                resetStart ()
+//                resetStart ()
                 showIt (e)
             
             }
@@ -121,10 +121,12 @@ var drw; if (!drw) drw = {};
         return b
         
     }
-    
+
+/*    
     function resetStart () {
         $('input[name=start]').val (0)
     }
+*/    
     
     function showItOnEnter (e) {
         if (isEnterPressed (e)) showIt (e)
@@ -132,13 +134,13 @@ var drw; if (!drw) drw = {};
 
     function showItAndBlur (e) {
         $(this).blur ()
-        resetStart ()
+//        resetStart ()
         showIt (e)
     }    
 
     function toolbar_input (o) {
         return $('<input class="widget" />')
-            .keypress (resetStart)
+//            .keypress (resetStart)
             .keyup (showItOnEnter)
             .attr ({
                 name: o.name,
