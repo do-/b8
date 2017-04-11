@@ -44,8 +44,6 @@ sub check_session {
 	if ($c) {
 	
 		$_REQUEST {sid} = sql_select_scalar ("SELECT id FROM sessions WHERE client_cookie = ?", $c -> value);
-		
-		keep_alive ($_REQUEST {sid});
 
 		our $_USER = get_user ();
 
