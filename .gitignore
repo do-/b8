@@ -1,7 +1,4 @@
 /back/conf/elud.json
-/back/docroot/dbm
-/back/docroot/i/_mbox
-/back/docroot/i/_skins
-/back/docroot/session_access_logs
+/back/lib/Updates/_shot
 /back/logs
 /front/logs
