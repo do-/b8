@@ -12,7 +12,7 @@ sub do_create_sessions {
 		
 		user    => sql (users => [
 			[login => $d -> {login}],
-			[fake  => [0, -1]],
+			[fake  => 0],
 			[LIMIT => 1],
 		]),
 		
@@ -21,14 +21,6 @@ sub do_create_sessions {
 	if (!$data -> {user} -> {id}) {
 	
 		warn "Non-existing login entered: $d->{login}\n";
-
-		return undef;
-	
-	}
-	
-	if ($data -> {user} -> {fake} != 0) {
-	
-		warn "An attempt to use deleted login detected: $d->{login}\n";
 
 		return undef;
 	

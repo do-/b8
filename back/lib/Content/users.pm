@@ -38,8 +38,6 @@ sub get_item_of_users {
 
 sub do_update_users {
 
-	my $old = sql ("users");
-
 	my $data = $_REQUEST {data};
 	
 	$data -> {f} =~ /^[А-ЯЁ][а-яё]+$/ or die "#f#:Некорректная фамилия";
@@ -51,12 +49,6 @@ sub do_update_users {
 	$data -> {id_role} or die "#id_role#:Вы забыли указать роль";	
 	$data -> {login}   or die "#login#:Вы забыли указать login";
 	
-	if ($data -> {login} ne $old -> {login}) {
-		sql_do ('DELETE FROM logins WHERE id = ?', $old -> {login});
-		eval {sql_do ('INSERT INTO logins (id) VALUES (?)', $data -> {login})};
-		$@ and die "#_login#:Login '$data->{login}' уже занят";
-	}
-
 	my $p2 = delete $data -> {password2};
 	
 	if ($data -> {password}) {
@@ -65,15 +57,22 @@ sub do_update_users {
 	
 		$data -> {salt}     = password_hash (rand, time);
 		$data -> {password} = password_hash ($data -> {salt}, $data -> {password});
+		
 	}
 	else {
 		delete $data -> {password};
 	}
+		
+	eval {
+		sql_do_update (users => $data, $_REQUEST {id});
+	};
 	
-	$data -> {fake} = 0;
-	$data -> {id}   = $_REQUEST {id};
-	
-	sql_select_id (users => dash ($data, ['id']));
+	if ($@ =~ /UNIQUE VIOLATION/i) {
+		die "#login#: login $data->{login} уже занят";
+	}
+	elsif ($@) {
+		die $@;
+	}
 
 }
 
@@ -93,8 +92,6 @@ sub do_delete_users {
 
 	sql_do ('UPDATE users SET fake = -1 WHERE id = ?', $data -> {id});
 	
-	sql_do ('DELETE FROM logins WHERE id = ?', $data -> {login});
-
 }
 
 ################################################################################
@@ -103,11 +100,16 @@ sub do_undelete_users {
 
 	my $data = sql ("users");
 
-	eval {sql_do ('INSERT INTO logins (id) VALUES (?)', $data -> {login})};
-	
-	$@ and die "#_login#:Login '$data->{login}' в настоящее время занят";
+	eval {
+		sql_do_update (users => {fake => 0}, $_REQUEST {id});
+	};
 
-	sql_do ('UPDATE users SET fake = 0 WHERE id = ?', $_REQUEST {id});
+	if ($@ =~ /UNIQUE VIOLATION/i) {
+		die "#login#: login $data->{login} занят, восстановление невозможно";
+	}
+	elsif ($@) {
+		die $@;
+	}
 	
 }
 
