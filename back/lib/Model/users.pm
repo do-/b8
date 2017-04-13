@@ -1,9 +1,9 @@
 columns => {
-	label => {TYPE_NAME    => 'varchar', COLUMN_SIZE  => 255},
-	f => {TYPE_NAME    => 'varchar', COLUMN_SIZE  => 255},
-	i => {TYPE_NAME    => 'varchar', COLUMN_SIZE  => 255},
-	o => {TYPE_NAME    => 'varchar', COLUMN_SIZE  => 255},
-	salt => {TYPE_NAME    => 'char', COLUMN_SIZE  => 64},
+	id_role  => 'int = 2',
+	f        => 'string[40]',
+	i        => 'string[40]',
+	o        => 'string[40]',	
+	salt     => 'char[64]',
 },
 
 keys => {
@@ -11,5 +11,5 @@ keys => {
 },
 
 data => [
-	{id => 1, fake => 0, login => 'admin', label => 'Óñëîâíûé àäìèí', password => '095aeb3129b46cb0a91f4da067742c8ff91b4220cb8ee8dff3fd04918979e9e9', salt => '0000000000000000000000000000000000000000000000000000000000000000', id_role => 1},
+	{id => 1, fake => 0, login => 'admin', label => 'Ð£ÑÐ»Ð¾Ð²Ð½Ñ‹Ð¹ Ð°Ð´Ð¼Ð¸Ð½', password => '095aeb3129b46cb0a91f4da067742c8ff91b4220cb8ee8dff3fd04918979e9e9', salt => '0000000000000000000000000000000000000000000000000000000000000000', id_role => 1},
 ],

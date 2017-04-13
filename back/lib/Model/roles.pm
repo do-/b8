@@ -1,4 +1,4 @@
 data => [
-	{id => 1, fake => 0, name => 'admin', label => 'Àäìèíèñòðàòîð'},
-	{id => 2, fake => 0, name => 'user', label => 'Ïîëüçîâàòåëü'},
+	{id => 1, fake => 0, name => 'admin', label => 'ÐÐ´Ð¼Ð¸Ð½Ð¸ÑÑ‚Ñ€Ð°Ñ‚Ð¾Ñ€'},
+	{id => 2, fake => 0, name => 'user', label => 'ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ'},
 ]
