@@ -3,10 +3,11 @@ use Digest::SHA;
 our $conf = {
 	
 	portion => 2,
-	session_timeout => 1,
-	
+		
 	sql_features => ['idx.partial'],
-			
+	
+	auth => {session_timeout => 1},
+	
 };
 
 sub password_hash {
@@ -29,16 +30,8 @@ sub password_hash {
 
 sub check_session {
 
-	my $c = $_COOKIES {sid};
+	our $_USER = get_user ();
 
-	if ($c) {
-	
-		$_REQUEST {sid} = sql_select_scalar ("SELECT id FROM sessions WHERE client_cookie = ?", $c -> value);
-
-		our $_USER = get_user ();
-
-	}
-		
 	if (!$_USER -> {id} && ($_REQUEST {type} ne 'sessions')) {
 	
 		$r -> status (401);
