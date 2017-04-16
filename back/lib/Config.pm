@@ -6,7 +6,7 @@ our $conf = {
 		
 	sql_features => ['idx.partial'],
 	
-	auth => {session_timeout => 1},
+#	systables => {sessions => 'foo'},
 	
 };
 

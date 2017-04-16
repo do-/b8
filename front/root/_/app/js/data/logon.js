@@ -7,6 +7,8 @@ define ([], function () {
             {type: 'sessions', action: 'create'}, {data: values ($('.logon.form'))}, function (data) {
 
                 var d = data
+                
+                if (d.timeout < 1) d.timeout = 1
 
                 if (d && d.success) {
                     $_SESSION.set ('user', d.user)

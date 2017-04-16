@@ -8,7 +8,7 @@ sub do_create_sessions {
 	
 		success => \1, 
 		
-		timeout => $preconf -> {auth} -> {session_timeout},
+		timeout => $preconf -> {auth} -> {sessions} -> {timeout},
 		
 		user    => sql (users => [
 			[login => $d -> {login}],

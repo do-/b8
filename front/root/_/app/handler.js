@@ -60,6 +60,8 @@ requirejs (['jquery/jquery-3.1.1.min', 'less/less.min', 'core/core'], function (
         var timeout = sessionStorage.getItem ('timeout')
         
         if (!timeout) return
+
+        if (timeout < 1) timeout = 1
         
         if (keepAliveTimer) clearTimeout (keepAliveTimer)
         

@@ -12,8 +12,29 @@
 		
 #		"salt_file"   : "c:/buf/___/salt.txt",
 
-		"core_debug_profiling": 1
-
+		"core_debug_profiling": 1,
+		
+		"auth": {
+		
+			"sessions": {
+			
+				"timeout": 1,
+				
+				"cookie": {
+					"name": "sid",
+					"path": "/_back"
+				},
+			
+				"memcached": {
+				      "servers": [{"address": "localhost:11211"}],
+				      "namespace": "back_session:",
+				      "nowait": 1,
+				      "utf8": 0
+				}
+			
+			}
+		
+		}
 	}
 
 }
