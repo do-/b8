@@ -5,15 +5,39 @@
 		<noscript>
 			<meta http-equiv="refresh" content="0; url=/_unmaintainable_browser/">
 		</noscript>
-		<link rel="stylesheet/less" type="text/css" href="_/libs/tmilk/tmilk.less">
 		<script>
-			window.timeBomb = setTimeout (
-				function () {
-					window.location.href='/_unmaintainable_browser/'
-				} , 1000
-			);
+
+//			window.alarm = setTimeout (function () {window.location.href='/_unmaintainable_browser/'} , 1000);
+
+			window.autoExec = function () {};
+
+			(function () {
+
+				var r = sessionStorage.getItem ('staticRoot')
+
+				function el (name, attr) {
+					var t = document.createElement (name)
+					for (var i in attr) t.setAttribute (i, attr [i])
+					return t
+				}
+
+				function ahead (e) {document.head.appendChild (e)}
+
+				if (r) {
+					ahead (el ('link',   {href: r + '/libs/tmilk/tmilk.less', rel: 'stylesheet/less', type: 'text/css'}))
+					ahead (el ('script', {src:  r + '/libs/requirejs/require.js', 'data-main': r + '/app/handler.js'}))
+				}
+				else {
+
+					window.autoExec = function () {
+						document.body.appendChild (el ('iframe', {src: '_/ver.html?_=' + Math.random (), style: 'display:none'}))
+					}
+
+				}
+
+			})()
+
 		</script>
-		<script src="_/libs/requirejs/require.js" data-main="_/app/handler.js"></script>
 	</head>
-	<body></body>
+	<body onLoad="window.autoExec ()"></body>
 </html>

@@ -77,8 +77,8 @@ var use = {
 use.block = function (name) {
 
     var html = $('<span>')
-                        
-    html.load ('_/app/html/' + name + '.html', function () {
+
+    html.load (sessionStorage.getItem ('staticRoot') + '/app/html/' + name + '.html', function () {
         
         require (['app/js/data/' + name], function (f) {
             

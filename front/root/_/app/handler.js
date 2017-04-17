@@ -1,8 +1,6 @@
-requirejs.config({
-    baseUrl: '_/libs',
-    paths: {
-        app: '../app'
-    }
+requirejs.config ({
+    baseUrl: sessionStorage.getItem ('staticRoot') + '/libs',
+    paths: {app: '../app'}
 });
 
 var $_F5
@@ -51,7 +49,7 @@ function draw_page () {
 
 requirejs (['jquery/jquery-3.1.1.min', 'less/less.min', 'core/core'], function (jq, less, core) {
 
-    clearTimeout (window.timeBomb)
+    clearTimeout (window.alarm)
     
     var keepAliveTimer;
     
