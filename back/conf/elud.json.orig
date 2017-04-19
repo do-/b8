@@ -4,37 +4,37 @@
 		"port"   : 9000
 	},
 	
-	"app": {
+	"db": {
+		"dsn"      : "DBI:Pg:database=b8...",
+		"user"     : "...",
+		"password" : "..."
+	},		
 
-		"db_dsn"      : "DBI:mysql:database=...",
-		"db_user"     : "...",
-		"db_password" : "...",
 		
-#		"salt_file"   : "c:/buf/___/salt.txt",
+#	"salt_file"   : "c:/buf/___/salt.txt",
 
-		"core_debug_profiling": 1,
+	"core_debug_profiling": 1,
+	
+	"auth": {
+	
+		"sessions": {
 		
-		"auth": {
+			"timeout": 1,
+			
+			"cookie": {
+				"name": "sid",
+				"path": "/_back"
+			},
 		
-			"sessions": {
-			
-				"timeout": 1,
-				
-				"cookie": {
-					"name": "sid",
-					"path": "/_back"
-				},
-			
-				"memcached": {
-				      "servers": [{"address": "localhost:11211"}],
-				      "namespace": "back_session:",
-				      "nowait": 1,
-				      "utf8": 0
-				}
-			
+			"memcached": {
+			      "servers": [{"address": "localhost:11211"}],
+			      "namespace": "back_session:",
+			      "nowait": 1,
+			      "utf8": 0
 			}
 		
 		}
+	
 	}
 
 }
