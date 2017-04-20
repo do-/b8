@@ -40,20 +40,20 @@ sub do_update_users {
 
 	my $data = $_REQUEST {data};
 	
-	$data -> {f} =~ /^[А-ЯЁ][а-яё]+$/ or die "#f#:Некорректная фамилия";
-	$data -> {i} =~ /^[А-ЯЁ][а-яё]+$/ or die "#i#:Некорректное имя";
-	$data -> {o} =~ /^[А-ЯЁ][а-яё]*[ач]$/ or die "#o#:Некорректное отчество";
+	$data -> {f} =~ /^[Рђ-РЇРЃ][Р°-СЏС‘]+$/ or die "#f#:РќРµРєРѕСЂСЂРµРєС‚РЅР°СЏ С„Р°РјРёР»РёСЏ";
+	$data -> {i} =~ /^[Рђ-РЇРЃ][Р°-СЏС‘]+$/ or die "#i#:РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РёРјСЏ";
+	$data -> {o} =~ /^[Рђ-РЇРЃ][Р°-СЏС‘]*[Р°С‡]$/ or die "#o#:РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РѕС‚С‡РµСЃС‚РІРѕ";
 
 	$data -> {label} = $data -> {f} . ' ' . $data -> {i} . ' ' . $data -> {o};
 
-	$data -> {id_role} or die "#id_role#:Вы забыли указать роль";	
-	$data -> {login}   or die "#login#:Вы забыли указать login";
+	$data -> {id_role} or die "#id_role#:Р’С‹ Р·Р°Р±С‹Р»Рё СѓРєР°Р·Р°С‚СЊ СЂРѕР»СЊ";	
+	$data -> {login}   or die "#login#:Р’С‹ Р·Р°Р±С‹Р»Рё СѓРєР°Р·Р°С‚СЊ login";
 	
 	my $p2 = delete $data -> {password2};
 	
 	if ($data -> {password}) {
 	
-		$data -> {password} eq $p2 or die "#password#:Ошибка при первом или повторном вводе пароля";
+		$data -> {password} eq $p2 or die "#password#:РћС€РёР±РєР° РїСЂРё РїРµСЂРІРѕРј РёР»Рё РїРѕРІС‚РѕСЂРЅРѕРј РІРІРѕРґРµ РїР°СЂРѕР»СЏ";
 	
 		$data -> {salt}     = password_hash (rand, time);
 		$data -> {password} = password_hash ($data -> {salt}, $data -> {password});
@@ -68,7 +68,7 @@ sub do_update_users {
 	};
 	
 	if ($@ =~ /UNIQUE VIOLATION/i) {
-		die "#login#: login $data->{login} уже занят";
+		die "#login#: login $data->{login} СѓР¶Рµ Р·Р°РЅСЏС‚";
 	}
 	elsif ($@) {
 		die $@;
@@ -105,7 +105,7 @@ sub do_undelete_users {
 	};
 
 	if ($@ =~ /UNIQUE VIOLATION/i) {
-		die "#login#: login $data->{login} занят, восстановление невозможно";
+		die "#login#: login $data->{login} Р·Р°РЅСЏС‚, РІРѕСЃСЃС‚Р°РЅРѕРІР»РµРЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ";
 	}
 	elsif ($@) {
 		die $@;
