@@ -29,6 +29,8 @@ sub get_item_of_users {
 	delete $data -> {password};
 		
 	add_vocabularies ($data, 'roles');
+	
+	my $path = _users_photo_path (); $data -> {photo} = sub {print_as_data_uri ($path)} if -f $path;
 		
 	$data;
 	
@@ -62,6 +64,16 @@ sub do_update_users {
 	else {
 		delete $data -> {password};
 	}
+	
+	my $photo_b64;
+	
+	if (my $photo = delete $data -> {photo}) {
+	
+		$photo =~ m{^data:image/jpeg;base64,} or die "#photo#:Некорректный формат изображения";
+		
+		$photo_b64 = $';
+	
+	}
 		
 	eval {
 		sql_do_update (users => $data, $_REQUEST {id});
@@ -73,6 +85,21 @@ sub do_update_users {
 	elsif ($@) {
 		die $@;
 	}
+	
+	my $path = _users_photo_path ();
+	
+	open (F, ">$path") or die "Can't write to $path:$!\n";
+	binmode F;
+	print F MIME::Base64::decode ($photo_b64);
+	close (F);
+
+}
+
+################################################################################
+
+sub _users_photo_path {
+
+	$preconf -> {files} -> {root} . "/users/photos/$_REQUEST{id}.jpeg";
 
 }
 

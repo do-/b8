@@ -189,6 +189,9 @@ function query (tia, data, done, fail) {
             sessionStorage.clear ()
             location.reload ()
         } 
+        else if (jqXHR.status == 413) {
+            alert ('Вы пытаетесь передать слишком большой объём данных: вероятно, файл недопустимой величины')
+        } 
         else if (jqXHR.status == 504) {
             location.href = '/_maintenance/'
         } 
@@ -261,6 +264,7 @@ function fill (jq, data) {
     eachAttr (jq, 'data-off',    data, function (me, n, v) {if (v) me.remove ()})
     eachAttr (jq, 'data-on',     data, function (me, n, v) {if (!v) me.remove ()})
     eachAttr (jq, 'data-uri',    data, function (me, n, v) {me.attr ('data-href', v).find (':not(:has(*))').wrapInner ('<span class="anchor"/>')})
+    eachAttr (jq, 'data-img',    data, function (me, n, v) {me.css ({'background-image': 'url(data:' + v + ')'}); me.attr ('data-image', n)})
     
     clickOn ($('span.anchor', jq), onDataUriDblClick)
 
