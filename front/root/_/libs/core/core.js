@@ -334,12 +334,18 @@ function onEnterGoToNextInput (e) {
     inputs.eq (i + 1).focus ()
 }
 
-function showIt (e) {
-    use.block ($_REQUEST.type)
-    if (!e) return
+function blockEvent (e) {
+    if (!e) return undefined
+    if (!e.preventDefault) return e
     e.preventDefault ()
     e.stopImmediatePropagation ()
     e.stopPropagation ()
+    return e
+}
+
+function showIt (e) {
+    use.block ($_REQUEST.type)
+    blockEvent (e)
 }
 
 function refreshOpener () {

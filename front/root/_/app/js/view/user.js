@@ -20,15 +20,13 @@ define ([], function () {
         
         var f = $('input[type=file]').hide ()
         
-        td.click (function () {f.get (0).click ()})
+        td.click (function () {f.get (0).click ()}) // open file dialog by click on the photo
         
-        f.change (function () {
+        function loadImage (file) {
         
-            var file = f.get (0).files [0]
-            
             if (!file) return
             
-            var reader  = new FileReader ()
+            var reader = new FileReader ()
             
             reader.addEventListener ("load", function () {
             
@@ -48,7 +46,15 @@ define ([], function () {
     
             reader.readAsDataURL (file)
 
-        })
+        }        
+        
+        f.change (function () {loadImage (f.get (0).files [0])})
+        
+        td.on ("dragover", blockEvent).on ("dragleave", blockEvent).on ("drop", function (e) {
+        
+            loadImage (blockEvent (e).originalEvent.dataTransfer.files [0])
+
+        });
 
     }
 
