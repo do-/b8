@@ -385,6 +385,7 @@ var Base64img = {
         })
 
         if (src.substr (0,5) == 'url("') src = src.substr (5, src.length - 7)
+        if (src.substr (0,5) != 'data:') src = 'data:' + src
 
         img.attr ({src: src})
 

@@ -12,14 +12,23 @@ define ([], function () {
     
     function setup_photo () {
     
-        var td = $('td[data-image]')        
+        var td = $('td[data-image]'); if (!td.length) return
+                
+        if (user.photo) {
 
-        Base64img.measure (td.css ('background-image'), function (dim) {dim.adjustWidth (td)})
+            Base64img.measure (user.photo, function (dim) {dim.adjustWidth (td)})
+
+        }
+        else {
         
-        if (user._read_only) return
+            td.text (td.attr ('title')).css ({'text-align': 'center'});
         
-        var f = $('input[type=file]').hide ()
+        }
         
+        if (user._read_only) return                
+        
+        var f = $('input[type=file]')
+
         td.click (function () {f.get (0).click ()}) // open file dialog by click on the photo
         
         function loadImage (file) {
@@ -38,7 +47,7 @@ define ([], function () {
 
                     $('input[name=photo]').val (b64)
 
-                    td.css ('background-image', 'url("' + b64 + '")')
+                    td.css ('background-image', 'url("' + b64 + '")').text ('')
 
                 })                
                 
