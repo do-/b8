@@ -4,6 +4,10 @@
 		"port"   : 9000
 	},
 	
+	"files": {
+		"root"   : "..."
+	},
+
 	"db": {
 		"dsn"      : "DBI:Pg:database=b8...",
 		"user"     : "...",

@@ -345,3 +345,44 @@ function showIt (e) {
 function refreshOpener () {
     try {window.opener.showIt ()} catch (e) {}
 }
+
+var Base64img = {
+
+    resize: function (img, dim, type, quality) {
+
+        var canvas = $('<canvas>').prop (dim) [0]
+
+        var ctx = canvas.getContext ('2d')
+
+        ctx.imageSmoothingEnabled = true
+
+        ctx.scale (1, 1)
+
+        ctx.drawImage (img, 0, 0, dim.width, dim.height)
+
+        return canvas.toDataURL (type, quality)
+
+    },
+    
+    measure: function (src, callback) {
+
+        var img = $('<img>')
+
+        img.on ('load', function () {
+
+            callback.call (this, {
+                width       : this.width,
+                height      : this.height,
+                adjustWidth : function (jq) {jq.css ('width', jq.height () * this.width / this.height)}
+            })
+
+        })
+
+        if (src.substr (0,5) == 'url("') src = src.substr (5, src.length - 7)
+
+        img.attr ({src: src})
+
+    }
+
+}
+

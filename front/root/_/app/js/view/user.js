@@ -12,9 +12,9 @@ define ([], function () {
     
     function setup_photo () {
     
-        var td = $('td[data-image]')
-    
-        td.css ('width', td.height () / 1.41)
+        var td = $('td[data-image]')        
+
+        Base64img.measure (td.css ('background-image'), function (dim) {dim.adjustWidth (td)})
         
         if (user._read_only) return
         
@@ -31,59 +31,18 @@ define ([], function () {
             var reader  = new FileReader ()
             
             reader.addEventListener ("load", function () {
-                            
-                var img = $('<img>');
-                
-                img.on ('load', function () {
-                
-                    var src = {
-                        x      : 0,
-                        y      : 0,
-                        width  : this.width,
-                        height : this.height
-                    }
-                
-                    var dst = {
-                        width:  td.width (),
-                        height: td.height ()
-                    };
+            
+                Base64img.measure (reader.result, function (dim) {
 
-                    var canvas = $('<canvas>').prop (dst) [0]
-                    
-                    var ctx = canvas.getContext ('2d')
-                    
-                    ctx.imageSmoothingEnabled = true;
-                    
-                    var hw = dst.height / dst.width
-                    
-                    var dh = Math.floor (src.height - src.width  * hw)
-                    var dw = Math.floor (src.width  - src.height / hw)
-                    
-                    if (dh > 0) { // too tall, crop vertically by dh
-                        src.height -= dh
-                        src.y = Math.floor (dh / 2)
-                    }
-                    else if (dw > 0) { // too wide, crop horizontally by dw
-                        src.width -= dw
-                        src.x = Math.floor (dw / 2)
-                    }
-                    
-                    ctx.drawImage (img.get (0)
-                        , src.x, src.y, src.width, src.height
-                        ,     0,     0, dst.width, dst.height
-                    )
+                    dim.adjustWidth (td)
 
-                    var b64 = canvas.toDataURL ('image/jpeg', 0.95)
+                    var b64 = Base64img.resize (this, {width:  2 * td.width (), height: 2 * td.height ()}, 'image/jpeg', 0.95)
 
                     $('input[name=photo]').val (b64)
 
-                    var url = 'url("' + b64 + '")'
+                    td.css ('background-image', 'url("' + b64 + '")')
 
-                    td.css ('background-image', url)
-                
-                }) 
-                
-                img.attr ({src: reader.result});                
+                })                
                 
             }, false)
     
