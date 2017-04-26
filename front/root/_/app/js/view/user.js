@@ -35,6 +35,8 @@ define ([], function () {
         
             if (!file) return
             
+            if (file.type != 'image/jpeg') return alert ('Некорректный тип файла. Требуется фото в формате JPEG.')
+
             var reader = new FileReader ()
             
             reader.addEventListener ("load", function () {
