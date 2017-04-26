@@ -40,11 +40,8 @@ function draw_page () {
             
     if (!$_REQUEST.type) redirect ('/users/')
     
-    require (['tmilk/buttons'])    
-    require (['tmilk/tables'])    
+    require (['tmilk/buttons', 'tmilk/tables'], showIt)
     
-    showIt ()
-
 }
 
 requirejs (['jquery/jquery-3.1.1.min', 'less/less.min', 'core/core'], function (jq, less, core) {
