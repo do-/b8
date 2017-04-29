@@ -140,7 +140,7 @@ function values (jq) {
 
 function query (tia, data, done, fail) {
 
-    var url = '/_back/?';
+    var url = sessionStorage.getItem ('dynamicRoot') + '/?';
 
     if ('type' in tia) {
         if (!tia.type) tia = {}    // empty request for keep-alive
