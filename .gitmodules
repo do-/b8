@@ -1,0 +1,3 @@
+[submodule "front/root/_/libs/elu"]
+	path = front/root/_/libs/elu
+	url = https://github.com/do-/elu.js.git
