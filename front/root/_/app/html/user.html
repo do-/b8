@@ -1,12 +1,13 @@
 <span class="drw form">
 
-	<input type="file" accept=".jpg,.jpeg" class="invisible">
-	<input type="hidden" name="photo">
-
 	<table>
 		<tr data-off="_read_only">
 			<th>Фамилия:</th>
-			<td><input name="f" size="40" required pattern="^[А-ЯЁ][а-яё]+$"></td>
+			<td>
+				<input name="f" size="40" required pattern="^[А-ЯЁ][а-яё]+$">
+				<input type="file" accept=".jpg,.jpeg" class="invisible">
+				<input type="hidden" name="photo">
+			</td>
 			<td rowspan=6 data-img="photo" title="Щёлкните, чтобы выбрать фото"></td>
 		</tr>
 		<tr data-off="_read_only">
@@ -18,7 +19,9 @@
 			<td><input name="o" size="40" required pattern="^[А-ЯЁ][а-яё]*[ач]$"></td>
 		</tr>
 		<tr data-on="_read_only">
-			<th>ФИО:</th>
+			<th>ФИО:
+				<input type="file" class="invisible">
+			</th>
 			<td data-text="label"></td>
 			<td rowspan=5 data-img="photo" data-on="photo"></td>
 		</tr>
@@ -53,6 +56,12 @@
 		<tr data-on="_read_only">
 			<th>...</th>
 			<td></td>
+		</tr>
+
+
+		<tr data-list="user_files">
+			<th>Файл:</th>
+			<td data-text="label" data-uri="uri" data-target="invisible"></td>
 		</tr>
 
 	</table>

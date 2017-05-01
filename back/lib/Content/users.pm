@@ -31,6 +31,10 @@ sub get_item_of_users {
 	add_vocabularies ($data, 'roles');
 	
 	my $path = _users_photo_path (); $data -> {photo} = sub {print_as_data_uri ($path)} if -f $path;
+	
+	sql ($data, user_files => [
+		[id_user => $data -> {id}],
+	]);
 		
 	$data;
 	

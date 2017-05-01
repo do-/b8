@@ -5,6 +5,19 @@ requirejs.config ({
 
 var $_F5
 
+function setBackUri (data, o) {
+
+    if (!data) return
+
+    if ($.isArray (data)) {
+        for (var i = 0; i < data.length; i ++) setBackUri (data [i], o)
+    }
+    else {
+        if (o.id = data.id) data.uri = sessionStorage.getItem ('dynamicRoot') + '/?' + $.param (o)
+    }
+
+}
+
 function setUri (data, type) {
 
     if (!type) type = en_unplural ($_REQUEST.type)
@@ -28,18 +41,35 @@ function checkList (data, name) {
     
 }
 
+function setup_request () {
+
+    var parts = window.location.pathname.split ('/').filter (function (s) {return s > ' '});
+    
+    if (parts [0] == 'download') {
+        parts.shift ()
+        $_REQUEST.download = true
+    }
+
+    $_REQUEST.type = parts [0]
+    $_REQUEST.id   = parts [1]
+
+}
+
 function draw_page () {
 
+    setup_request ()
     setup_user    ()
+    
+    if (!$_USER) delete $_REQUEST.download
 
-    use.block ('main')
+    if (!$_REQUEST.download) use.block ('main')
     
     if (!$_USER) return use.block ('logon')
-       
-    setup_request ()
-            
+                   
     if (!$_REQUEST.type) redirect ('/users/')
     
+    if ($_REQUEST.download) return use.data ($_REQUEST.type)
+
     require (['tmilk/buttons', 'tmilk/tables'], showIt)
     
 }
