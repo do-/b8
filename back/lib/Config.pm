@@ -34,7 +34,7 @@ sub check_session {
 
 	if (!$_USER -> {id} && ($_REQUEST {type} ne 'sessions')) {
 	
-		$r -> status (401);
+		$_HEADERS -> header (Status => 401);
 		
 		send_http_header ();
 	
@@ -48,7 +48,7 @@ sub get_page_data {
 
 	require_content $_REQUEST {type};
 	
-	$_REQUEST {action} or return call_for_role (($_REQUEST {id} ? 'get_item_of_' : 'select_') . $_REQUEST {type});
+	$_REQUEST {action} or return call_for_role (($_REQUEST {id} ? 'get_' . ($_REQUEST {part} || 'item') . '_of_' : 'select_') . $_REQUEST {type});
 	
 	$db -> {AutoCommit} = 0;
 	
@@ -66,7 +66,7 @@ sub get_page_data {
 
 sub handle_valid_request {
 
-	$r -> status (200);
+	$_HEADERS -> header (Status => 200);
 
 	my $page = {success => \1};
 
@@ -74,7 +74,7 @@ sub handle_valid_request {
 
 		sql_reconnect ();
 
-		check_session (); $r -> status () eq 200 or return;
+		check_session (); $_HEADERS -> header ('Status') eq 200 or return;
 
 		$page -> {content} = get_page_data () if $_REQUEST {type};
 
@@ -105,7 +105,7 @@ sub handle_valid_request {
 
 			$h -> {dt} =~ y{ }{T};
 			
-			$r -> status (500);
+			$_HEADERS -> header (Status => 500);
 			
 		}
 	
