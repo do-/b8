@@ -1,6 +1,6 @@
 requirejs.config ({
     baseUrl: sessionStorage.getItem ('staticRoot') + '/libs',
-    paths: {app: '../app'}
+    paths: {app: '../app/js'}
 });
 
 var $_F5
