@@ -7,9 +7,14 @@
 		</noscript>
 		<script>
 
-			window.alarm = setTimeout (function () {window.location.href='/_unmaintainable_browser/'} , 1000);
+//			window.alarm = setTimeout (function () {window.location.href='/_unmaintainable_browser/'} , 1000);
 
 			window.autoExec = function () {};
+
+			var ver = '1.0.10';
+
+			sessionStorage.setItem ('staticRoot', '__' + ver.replace (/\./g, '_'));
+			sessionStorage.setItem ('dynamicRoot', '/_back');
 
 			(function () {
 
@@ -23,17 +28,8 @@
 
 				function ahead (e) {document.head.appendChild (e)}
 
-				if (r) {
-					ahead (el ('link',   {href: r + '/libs/tmilk/tmilk.less', rel: 'stylesheet/less', type: 'text/css'}))
-					ahead (el ('script', {src:  r + '/libs/requirejs/require.js', 'data-main': r + '/app/handler.js'}))
-				}
-				else {
-
-					window.autoExec = function () {
-						document.body.appendChild (el ('iframe', {src: '_/ver.html?_=' + Math.random (), style: 'display:none'}))
-					}
-
-				}
+				ahead (el ('link',   {href: r + '/libs/tmilk/tmilk.css', rel: 'stylesheet', type: 'text/css'}))
+				ahead (el ('script', {src:  r + '/libs/requirejs/require.js', 'data-main': r + '/app/js/_.js'}))
 
 			})()
 

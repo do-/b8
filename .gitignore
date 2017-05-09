@@ -2,4 +2,5 @@
 /back/lib/Updates/_shot
 /back/logs
 /front/logs
+/front/node_modules
 /files/

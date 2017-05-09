@@ -74,7 +74,7 @@ function draw_page () {
     
 }
 
-requirejs (['jquery/jquery-3.1.1.min', 'less/less.min', 'elu/elu'], function (jq, less, core) {
+requirejs (['elu/elu'], function (jq, less, core) {
 
     clearTimeout (window.alarm)
     
