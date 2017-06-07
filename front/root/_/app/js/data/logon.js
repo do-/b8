@@ -6,16 +6,9 @@ define ([], function () {
         
             {type: 'sessions', action: 'create'}, {data: values ($('.logon.form'))}, function (data) {
 
-                var d = data
-                
-                if (d.timeout < 1) d.timeout = 1
+                $_SESSION.start (data.user, data.timeout)
 
-                if (d && d.success) {
-                    $_SESSION.set ('user', d.user)
-                    $_SESSION.set ('timeout', d.timeout)
-                }
-
-                draw_page ()
+                location.reload ()
 
             }
         

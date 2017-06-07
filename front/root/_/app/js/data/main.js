@@ -4,12 +4,9 @@ define ([], function () {
     
         sessionStorage.clear ()
         
-        query ({
-            type:     'sessions',
-            action:   'delete'
-        }, {}, $_DO.nothing, $_DO.nothing)
+        query ({type: 'sessions', action: 'delete'}, {}, $.noop, $.noop)
         
-        window.location.href = '/'
+        redirect ('/')
         
     }
 

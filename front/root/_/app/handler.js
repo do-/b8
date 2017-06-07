@@ -58,7 +58,6 @@ function setup_request () {
 function draw_page () {
 
     setup_request ()
-    setup_user    ()
     
     if (!$_USER) delete $_REQUEST.download
 

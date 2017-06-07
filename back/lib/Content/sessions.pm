@@ -5,9 +5,7 @@ sub do_create_sessions {
 	my $d = $_REQUEST {data};
 
 	my $data = {
-	
-		success => \1, 
-		
+
 		timeout => $preconf -> {auth} -> {sessions} -> {timeout},
 		
 		user    => sql (users => [
@@ -52,7 +50,7 @@ sub do_delete_sessions {
 	
 	sql_do ("DELETE FROM sessions WHERE id = ?", $_REQUEST {sid});
 
-       	{success => \1};
+       	{};
 
 }
 
