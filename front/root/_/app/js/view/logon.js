@@ -8,7 +8,6 @@ define ([], function () {
     
     function inLogin    () { return $('input[name=login]')}
     function inPassword () { return $('input[name=password]')}
-    function btnOK      () { return $('button')}
     
     function keyUp (e) {
         if (e.which != 13) return
@@ -24,15 +23,13 @@ define ([], function () {
         $('title').text ('Вход в систему')
 
         $('div.auth-toolbar').toggleClass ('logon', true)
-                            
-        $('main').empty ().append (view)
         
+        fill (view, {}, $('main'))
+                                    
         recalc (); $(window).resize (recalc)                
         
         inLogin ().keyup (keyUp)
         inPassword ().keyup (keyUp)
-
-        clickOn (btnOK (), $_DO.execute_logon);
         
         inLogin ().focus ()
     

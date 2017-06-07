@@ -63,17 +63,24 @@ function draw_page () {
 
     if (!$_REQUEST.download) use.block ('main')
     
-    if (!$_USER) return use.block ('logon')
-                   
-    if (!$_REQUEST.type) redirect ('/users/')
+    if (!$_USER) {
     
-    if ($_REQUEST.download) return use.data ($_REQUEST.type)
+        $_REQUEST.type = 'logon'
+    
+    }
+    else {
 
-    require (['tmilk/buttons', 'tmilk/tables'], showIt)
-    
+        if (!$_REQUEST.type) redirect ('/users/')
+
+        if ($_REQUEST.download) return use.data ($_REQUEST.type)
+
+    }
+
+    use.block ($_REQUEST.type)
+
 }
 
-requirejs (['elu/elu'], function (jq, less, core) {
+requirejs (['elu/elu', 'tmilk/buttons', 'tmilk/tables'], function (jq, less, core) {
 
     clearTimeout (window.alarm)
     
