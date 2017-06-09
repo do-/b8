@@ -26,9 +26,7 @@ define ([], function () {
             'fake_select'
 
         ])
-        
-        use.lib ('tmilk/table-selector')
-                
+                        
     }
 
 });

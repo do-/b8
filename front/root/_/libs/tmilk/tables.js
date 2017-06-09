@@ -31,6 +31,8 @@ var drw; if (!drw) drw = {};
     
         if (t.length) refresh_table_body (t, view); else draw_new_table (view, widgets)
         
+        use.lib ('tmilk/table-selector')
+        
     }
 
 }) ()
