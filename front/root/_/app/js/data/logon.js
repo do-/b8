@@ -4,7 +4,7 @@ define ([], function () {
     
         query (
         
-            {type: 'sessions', action: 'create'}, {data: values ($('.logon.form'))}, function (data) {
+            {type: 'sessions', action: 'create'}, {data: values ($('form'))}, function (data) {
 
                 $_SESSION.start (data.user, data.timeout)
 

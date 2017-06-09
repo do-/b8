@@ -1,11 +1,5 @@
 define ([], function () {
 
-    function recalc () {    
-        var h = $(window).height () - 338
-        if (h < 0) h = 0
-        $('header').css ('margin-top', h / 2)       
-    }
-    
     function inLogin    () { return $('input[name=login]')}
     function inPassword () { return $('input[name=password]')}
     
@@ -25,9 +19,7 @@ define ([], function () {
         $('div.auth-toolbar').toggleClass ('logon', true)
         
         fill (view, {}, $('main'))
-                                    
-        recalc (); $(window).resize (recalc)                
-        
+                                            
         inLogin ().keyup (keyUp)
         inPassword ().keyup (keyUp)
         
