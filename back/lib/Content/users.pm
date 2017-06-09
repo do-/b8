@@ -78,7 +78,7 @@ sub do_update_users {
 		$photo_b64 = $';
 	
 	}
-		
+
 	eval {
 		sql_do_update (users => $data, $_REQUEST {id});
 	};
@@ -90,12 +90,16 @@ sub do_update_users {
 		die $@;
 	}
 	
-	my $path = _users_photo_path ();
-	
-	open (F, ">$path") or die "Can't write to $path:$!\n";
-	binmode F;
-	print F MIME::Base64::decode ($photo_b64);
-	close (F);
+	if ($photo_b64) {
+
+		my $path = _users_photo_path ();
+
+		open (F, ">$path") or die "Can't write to $path:$!\n";
+		binmode F;
+		print F MIME::Base64::decode ($photo_b64);
+		close (F);
+		
+	}	
 
 }
 
