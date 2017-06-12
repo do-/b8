@@ -10,6 +10,7 @@ define ([], function () {
         
         use.block ('clock')
         use.block ('auth_toolbar_user')
+        use.block ($_REQUEST.type)
         
     }
         

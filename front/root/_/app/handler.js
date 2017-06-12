@@ -3,8 +3,6 @@ requirejs.config ({
     paths: {app: '../app/js'}
 });
 
-var $_F5
-
 function setBackUri (data, o) {
 
     if (!data) return
@@ -55,72 +53,14 @@ function setup_request () {
 
 }
 
-function draw_page () {
-
-    setup_request ()
-    
-    if (!$_USER) delete $_REQUEST.download
-
-    if (!$_REQUEST.download) use.block ('main')
-    
-    if (!$_USER) {
-    
-        $_REQUEST.type = 'logon'
-    
-    }
-    else {
-
-        if (!$_REQUEST.type) redirect ('/users/')
-
-        if ($_REQUEST.download) return use.data ($_REQUEST.type)
-
-    }
-
-    use.block ($_REQUEST.type)
-
-}
-
 requirejs (['elu/elu', 'tmilk/buttons', 'tmilk/tables'], function (jq, less, core) {
 
     clearTimeout (window.alarm)
     
-    var keepAliveTimer;
+    $_SESSION.beforeExpiry ($_SESSION.keepAlive)
     
-    $(document).ajaxSuccess (function (event, request, settings) {
+    setup_request ()
     
-        var timeout = sessionStorage.getItem ('timeout')
-        
-        if (!timeout) return
-
-        if (timeout < 1) timeout = 1
-        
-        if (keepAliveTimer) clearTimeout (keepAliveTimer)
-        
-        keepAliveTimer = setTimeout (function () {
-        
-            query ({type: undefined}, {}, $_DO.nothing, $_DO.nothing)
-        
-        }, 1000 * (60 * timeout - 1))
-
-    });
-    
-    try {
-
-        draw_page ()
-
-    }
-    catch (e) {
-    
-        if ((typeof e === 'string' || e instanceof String) && e.match (/^core\.ok\./)) {
-            // do nothing
-        }
-        else {
-            darn (e)
-        }
-        
-    }    
+    use.block ('main')
 
 });
-
-
-

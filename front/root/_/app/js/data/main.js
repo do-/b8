@@ -10,8 +10,23 @@ define ([], function () {
         
     }
 
-    return function (done) {    
-        done ()    
+    return function (done) {
+    
+        if (!$_USER) {
+
+            $_REQUEST.type = 'logon'
+
+        }
+        else {
+
+            if (!$_REQUEST.type) redirect ('/users/')
+
+            if ($_REQUEST.download) return use.data ($_REQUEST.type)
+
+        }    
+    
+        done ()
+
     }
         
 });
