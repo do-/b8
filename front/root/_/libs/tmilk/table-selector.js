@@ -151,12 +151,12 @@ define ([], function () {
         var offset = tr.offset ().top - $(window).scrollTop ()
                 
         if (offset > window.innerHeight) return tr.attr ('data-id', 'next')
-
-        $('input[name=start]').val (tr.prevAll ().length)
-
+        
+        var s = tr.prevAll ().length
+        
         tr.remove ()        
-                
-        showIt ()
+
+        $('input[name=start]').val (s).change ()
 
     }
     

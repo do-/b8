@@ -3,29 +3,12 @@ define ([], function () {
     return function (data, view) {
             
         $('title').text ('Пользователи')
+
+        drw.table (view, {}, $('body > main'), {}, function (data) {
         
-        checkList (data, 'users')
-
-        drw.table ($('#users-table'), fill (view, data), [
-            
-            {
-                icon:    'create',
-                label:   '&Добавить',
-                onClick: $_DO.create_user
-            },
-            
-            {
-                label:   'ФИО',
-                name:    'q',                
-            },
-            {
-                label:   'Login',
-                name:    'login',                
-            },
-            
-            'fake_select'
-
-        ])
+            checkList (data, 'users')
+                        
+        })
                         
     }
 

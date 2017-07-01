@@ -1,6 +1,6 @@
 define ([], function () {
 
-    $_DO.create_user = function () {    
+    $_DO.create_users = function () {    
 
         query ({action: 'create'}, {}, function (data) {        
             
@@ -10,14 +10,8 @@ define ([], function () {
         
         })
 
-    }
+    }    
 
-    return function (done) {
-    
-        query ({}, {
-            search: values ($('.toolbar')),
-        }, done)
-        
-    }
+    return fire
         
 });

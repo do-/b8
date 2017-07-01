@@ -3,30 +3,37 @@
 	<header>Пользователи</header>
 
 	<div class="toolbar">
-<!--
-		<button class="icon create">Добавить</button>
-		Искать:&nbsp;<input name="q" class="widget">
+
+		<input name="start" type="hidden" value="0">
+
+		<button name="create" class="icon create" data-hotkey="Alt-L"><u>Д</u>обавить</button>
+
+		<input class="widget" name="q" placeholder="ФИО">
+
+		<input class="widget" name="login" placeholder="Login">
+
 		<select name="fake" class="widget">
 			<option value="0">Актуальные</option>
 			<option value="-1">Удалённые</option>
 			<option value="-1,0">Все</option>
 		</select>
--->
+
 	</div>
 
-	<table id="users-table">
+	<table>
+
 		<thead>
 			<tr>
 				<th>ФИО</th><th>Роль</th><th>login</th>
 			</tr>
 		</thead>
-
+		<tbody>
 			<tr data-list="users" data-uri="uri" data-id-field="id">
-				<td data-text="label"><!-- Админов Админ Админович --></a></td>
-				<td data-text="role.label"><!-- Администратор --></td>
-				<td data-text="login"><!-- admin --></td>
+				<td data-text="label"      />
+				<td data-text="role.label" />
+				<td data-text="login"      />
 			</tr>
-
+		</tbody>
 	</table>
 
 </span>

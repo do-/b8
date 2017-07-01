@@ -56,7 +56,25 @@ sub do_delete_user_files {
 
 ################################################################################
 
+sub do_undelete_user_files {
+
+	sql_do_update (user_files => {fake => 0});
+	
+	sql (user_files => $_REQUEST {id});
+
+}
+
+################################################################################
+
 sub get_item_of_user_files {
+
+	sql (user_files => $_REQUEST {id});
+
+}
+
+################################################################################
+
+sub get_content_of_user_files {
 
 	my $file = sql (user_files => $_REQUEST {id});
 	

@@ -148,4 +148,21 @@ sub do_undelete_users {
 	
 }
 
+################################################################################
+
+sub get_files_of_users {
+
+	my $data = {};
+	
+	$_REQUEST {id} > 0 or die "#_foo#: Не указана карточка сотрудника";
+	
+	sql ($data, user_files => [
+		[fake    => [split /,/, $_REQUEST {search} {fake}]],
+		[id_user => $_REQUEST {id}],
+	]);
+		
+	$data;
+	
+}
+
 1;

@@ -72,7 +72,7 @@ module.exports = function (grunt) {
       },
 
       js: {
-        files: ['root/_/app/**/*.js'],
+        files: ['root/_/*/**/*.js'],
         tasks: ['requirejs'],
         options: {nospawn: true}
       }

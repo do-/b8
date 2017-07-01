@@ -115,6 +115,8 @@ define ([], function () {
 
             if (user._read_only) {
             
+                use.block ('user_files')
+            
                 $('.toolbar').append (drw.button ({
                     icon: 'create',
                     label: 'Добавить файл',
@@ -140,7 +142,7 @@ define ([], function () {
             
         }
 
-        $_F5 ()            
+        $_F5 ()
     
     }
         

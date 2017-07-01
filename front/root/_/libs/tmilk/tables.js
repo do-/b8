@@ -2,37 +2,50 @@ var drw; if (!drw) drw = {};
 
 (function () {
 
-    function refresh_table_body (t, view) {
-
-        var tbody = $('tbody', t)
-        
-        var start = $('input[name=start]')
-        
-        if (start.val () == 0) {
-            tbody.empty ()
-        }
-        else {
-            start.val (0)                
-        }                
-                        
-        tbody.append ($('tbody', view).children ())
-
-    }
+    drw.table = function (template, data, container, tia, check) {
     
-    function draw_new_table (view, widgets) {
+        var htmlId = ('' + Math.random ()).replace ('0.', '')
+        
+        template.prop ('id', htmlId)
+        
+        var sel = '#' + htmlId
+        
+        var tpTbody = $('tbody', template).clone ()
+               
+        $('tbody', template).empty ()
 
-        drw.toolbar_widgets ($('.toolbar', view), {}, widgets)
+        container.empty ().append (fill (template, {}))
+        
+        function tb () {return $(sel + ' .toolbar')}
 
-        $('main').empty ().append (view)
+        function load () {
+
+            var tbody = $('tbody', $(sel))
+                    
+            if ($(this).attr ('name') != 'start') {
+
+                tbody.empty ()
             
-    }
-    
-    drw.table = function (t, view, widgets) {
-    
-        if (t.length) refresh_table_body (t, view); else draw_new_table (view, widgets)
+                $('input[name=start]', tb ()).val (0)
+
+            }
+
+            query (tia, {search: values (tb ())}, function (data) {
+
+                check (data)
+
+                tbody.append (fill (tpTbody, data).children ())
+
+                use.lib ('tmilk/table-selector')
+
+            })
+
+        }
         
-        use.lib ('tmilk/table-selector')
+        $('input, select', tb ()).change (load)
         
+        load ()
+
     }
 
 }) ()

@@ -1,0 +1,21 @@
+<span class="drw table">
+<header>Файлы</header>
+
+	<div class="toolbar">
+			<button name=create class="icon create">Добавить</button>
+<!--			Искать:&nbsp;<input name="q" class="widget"> -->
+			<select name="fake" class="widget">
+				<option value="0">Актуальные</option>
+				<option value="-1">Удалённые</option>
+				<option value="-1,0">Все</option>
+			</select>
+	</div>
+
+	<table id="users-table">
+		<tbody>
+			<tr data-list="user_files" data-uri="uri" data-id-field="id">
+				<td><div class="file-type" data-class="ext" /><span data-text="label" /></td>
+			</tr>
+		</tbody>
+	</table>
+</span>
