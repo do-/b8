@@ -85,11 +85,11 @@ define ([], function () {
                 
         $_F5 = function (over) {
         
-            $('title').text (user.fake > 0 ? 'Новый пользователь' : user.label)
-
+            drw.title (user.fake > 0 ? 'Новый пользователь' : user.label)
+        
             user = $.extend (user, over)
             
-            $('main').empty ().append (fill (view.clone (), user))
+            $('body > main > article').empty ().append (fill (view.clone (), user))
             
             setup_photo ()
 

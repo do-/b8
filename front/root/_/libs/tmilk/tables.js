@@ -1,5 +1,11 @@
 var drw; if (!drw) drw = {};
 
+drw.title = function (s) {
+    
+    $('title, body > div.auth-toolbar > div.title').text (s)
+
+};
+
 (function () {
 
     drw.table = function (template, data, container, tia, check) {

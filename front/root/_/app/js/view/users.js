@@ -2,9 +2,9 @@ define ([], function () {
 
     return function (data, view) {
             
-        $('title').text ('Пользователи')
+        drw.title ('Пользователи')
 
-        drw.table (view, {}, $('body > main'), {}, function (data) {
+        drw.table (view, {}, $('body > main > article'), {}, function (data) {
         
             checkList (data, 'users')
                         

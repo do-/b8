@@ -4,9 +4,9 @@ define ([], function () {
     
         data._read_only = 1
 
-        $('title').text (data.label)
+        drw.title (data.label)
                 
-        fill (view, data, $('main'))
+        fill (view, data, $('body > main > article'))
 
     }
 

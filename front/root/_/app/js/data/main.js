@@ -1,6 +1,6 @@
 define ([], function () {
 
-    $_DO.execute_logout = function () {
+    $_DO.logout_main = function () {
     
         sessionStorage.clear ()
         

@@ -2,11 +2,18 @@
 @hue-form:  200;
 @hue-nav:   232;
 
+@gray: #e5e5e5;
+
+
 @import "logon";
 @import "file_types";
 
 .invisible {
 	display: none;
+}
+
+.clickable {
+	cursor: pointer;
 }
 
 body, form {
@@ -23,10 +30,45 @@ body {
 	align-content: stretch;	
 	
 	> main {
+		
 		display: flex;
 		flex: 1;
-		flex-direction: column;
-	}	
+		flex-direction: row;
+
+		> nav {
+			@w: 32px;
+			width: @w;
+			display: flex;
+			flex-direction: column;
+			background-color: @gray;
+
+			button {
+				width: @w;
+				height: @w;
+				border: 0;
+				margin: 0;
+				padding: 0;
+				background: none;
+				outline: none;
+				font-size: 16px;
+				opacity: 0.1;
+			}
+
+			button.clickable:hover {
+				opacity: 1;
+			}
+
+		}
+		
+		> article {
+
+			display: flex;
+			flex: 1;
+			flex-direction: column;
+
+		}
+		
+	}
 	
 }
 
@@ -342,11 +384,10 @@ span[data-deleted] {
 div.auth-toolbar {
 
 	display: flex;
-	background-color: #e5e5e5;
+	background-color: @gray;
 	height: 28px;
 	line-height: 28px;
-	padding-top :10px;
-	padding-bottom :10px;
+	padding: 2px 0 2px 0;
 	
 	.separator1 {
 		width:1px;
@@ -368,23 +409,18 @@ div.auth-toolbar {
 			#eceeee
 		);	
 	}
-	
-	.green-separator {
-		width:4px;
-		height:21px;
-		background-color: #63a014;
-		padding-top: 3px;
-		padding-bottom: 4px;
-		margin-left: 20px;
-		margin-right: 10px;
+
+	div.menu {
+		font-size: 17px;
+		text-align:center;
+		width: 32px;
 	}
-	
-	.title {
+
+	div.title {
 		font-weight: bold;
 		font-size: 12pt;
 		color: #63a014;
-		font-family: 'Trebuchet MS', 'MS Sans Serif';
-		width:246px;
+		padding: 0;
     	}
     	
 	div.clock {
@@ -407,7 +443,7 @@ div.auth-toolbar {
 		margin-left: auto;
 		
 		button {
-			background-color: #e5e5e5;
+			background-color: @gray;
 			margin-right: 10px;
 		}
 
