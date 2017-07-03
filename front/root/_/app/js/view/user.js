@@ -77,22 +77,6 @@ define ([], function () {
 
     }
     
-    function adjust_files (files) {
-    
-        function adjust_file (file) {
-
-            setUri (file, 'download/user_file')
-            
-            var pos = file.label.lastIndexOf ('.')
-            
-            if (pos > -1) file.ext = file.label.substr (pos + 1).toLowerCase ()
-
-        }
-
-        for (var i = 0; i < files.length; i ++) adjust_file (files [i])
-    
-    }
-
     return function (data, view) {
     
         user = data
@@ -105,8 +89,6 @@ define ([], function () {
 
             user = $.extend (user, over)
             
-            adjust_files (user.user_files)
-
             $('main').empty ().append (fill (view.clone (), user))
             
             setup_photo ()
@@ -114,24 +96,12 @@ define ([], function () {
             drw.form_buttons ($('.toolbar'), user, {})
 
             if (user._read_only) {
-            
+                
                 use.block ('user_files')
             
-                $('.toolbar').append (drw.button ({
-                    icon: 'create',
-                    label: 'Добавить файл',
-                    onClick: openFileDialog
-                }))
-                
-                getFileInput ().change (function () {
-                
-                    $_DO.upload_user_file (getFileInput ().get (0).files [0], function (x, y) {darn ([x, y])})
-                    
-                })
-
             }
             else {
-            
+                        
                 recalc_span_password2 (); i_password ().keyup (recalc_span_password2)            
 
                 $('input:first').focus ()

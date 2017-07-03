@@ -37,17 +37,6 @@ define ([], function () {
 
     }    
     
-    $_DO.upload_user_file = function (file, onprogress) {
-    
-        Base64file.upload (file, {
-            data: {id_user: $_REQUEST.id},
-            type: 'user_files',
-            onprogress: onprogress,
-            onloadend: showIt
-        })
-
-    }
-
     return function (done) {
 
         query ({type: 'users'}, {}, done)        

@@ -14,7 +14,7 @@ var drw; if (!drw) drw = {};
                
         $('tbody', template).empty ()
 
-        container.empty ().append (fill (template, {}))
+        container.empty ().append (fill (template, {fake: 0}))
         
         function tb () {return $(sel + ' .toolbar')}
 
