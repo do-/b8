@@ -25,7 +25,7 @@ define ([], function () {
 
         }    
     
-        done ()
+        done ({})
 
     }
         

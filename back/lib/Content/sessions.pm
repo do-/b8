@@ -8,14 +8,14 @@ sub do_create_sessions {
 
 		timeout => $preconf -> {auth} -> {sessions} -> {timeout},
 		
-		user    => sql (users => [
+		user    => sql ('users(id, fake, f, i, o, salt, password)' => [
 			[login => $d -> {login}],
 			[fake  => 0],
 			[LIMIT => 1],
-		]),
+		], 'roles(name)'),
 		
 	};
-	
+
 	if (!$data -> {user} -> {id}) {
 	
 		warn "Non-existing login entered: $d->{login}\n";
@@ -24,9 +24,9 @@ sub do_create_sessions {
 	
 	}
 
-	my $hash = password_hash ($data -> {user} -> {salt}, $d -> {password});
+	my $hash = password_hash (delete $data -> {user} -> {salt}, $d -> {password});
 
-	if ($hash ne $data -> {user} -> {password}) {
+	if ($hash ne delete $data -> {user} -> {password}) {
 	
 		warn "Wrong password entered for $d->{login}\n";
 	
@@ -36,9 +36,11 @@ sub do_create_sessions {
 
 	sql_do ("DELETE FROM sessions WHERE id_user = ?", $data -> {user} -> {id});
 
-	start_session ($data -> {user} -> {id});
+	start_session (delete $data -> {user} -> {id});
 
 	set_cookie (-name => 'login', -value => $d -> {login}, -httponly => 1, -path => '/_back');
+	
+	$data -> {user} -> {role} = $data -> {user} -> {role} -> {name};
 
        	$data;
 

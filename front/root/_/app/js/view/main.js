@@ -4,6 +4,8 @@ define ([], function () {
         
         fill (view, {}, $('body'))
         
+        if ($_USER && $_USER.role != 'admin') $('body > main > nav > button[name=users]').remove ()
+        
         $('body > main > nav > button').each (function () {        
             var uri = '/' + this.name + '/'
             if (uri != window.location.pathname) clickOn ($(this), function () {openTab (uri)})
