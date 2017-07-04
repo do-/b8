@@ -4,16 +4,29 @@
 
 		<input name="start" type="hidden" value="0">
 
+		<button name="create" class="icon create">Новое дело...</button>
+
 		<select name="role" class="widget" autofocus>
-			<option value=0>рассматривает</option>
-			<option value=1>инициировал</option>
+			<option value=0>адресат:</option>
+			<option value=1>автор:</option>
 		</select>
 
 		<select name="id_user" class="widget">
 			<option data-list=users data-value=id data-text=label></option>
 		</select>
 
-		<button name="create" class="icon create" data-question="Вы уверены, что это дело ещё не оформлено?">Новое дело...</button>
+		<span id="id_user_to">
+
+			<span>&rarr;&nbsp;</span>
+
+			<select name="id_user_to" class="widget">
+				<option value=0>(кого запросил?)</option>
+				<option data-list=users data-value=id data-text=label></option>
+			</select>
+
+		</span>
+
+
 
 		<input class="widget" name="q" placeholder="Фильтр">
 
@@ -23,12 +36,14 @@
 
 		<thead>
 			<tr>
+				<th width=1>№</th>
 				<th>Тема</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr data-list="tasks" data-uri="uri" data-id-field="id">
-				<td data-text="label"      />
+				<td data-text="id" />
+				<td data-text="label" />
 			</tr>
 		</tbody>
 	</table>

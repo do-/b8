@@ -3,14 +3,15 @@ define ([], function () {
     function getToolbar () {
         return $('span[data-block-name=tasks] > div.toolbar')
     }
-
-    function recalcCreateButton () {
+    
+    function recalcTb () {
+    
         var tb = getToolbar ()
         var v  = values (tb)
-        var b  = $('button', tb)
-        if (v.role    == 0)         return b.hide ()
-        if (v.id_user != $_USER.id) return b.hide ()
-        b.show ()
+    
+        var s  = $('span#id_user_to', tb)
+        if (v.role == 1) s.show (); else s.hide ();
+            
     }
 
     return function (data, view) {
@@ -19,6 +20,7 @@ define ([], function () {
         
         data.role    = 0
         data.id_user = $_USER.id
+        data.id_user_to = 0
 
         drw.table (view, data, $('body > main > article'), {}, function (data) {
         
@@ -26,7 +28,7 @@ define ([], function () {
                         
         })
                 
-        recalcCreateButton (); $('select', getToolbar ()).change (recalcCreateButton)
+        recalcTb (); $('select', getToolbar ()).change (recalcTb)
 
     }
 
