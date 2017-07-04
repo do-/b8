@@ -8,5 +8,6 @@ columns => {
 },
 
 keys => {
-	id_user => 'id_user',
+	id_user => 'id_user,id',
+	id_user_from => 'id_user_from,id',
 },

@@ -4,11 +4,16 @@
 
 		<input name="start" type="hidden" value="0">
 
-		<button name="create" class="icon create" data-hotkey="Alt-L"><u>Д</u>обавить</button>
+		<select name="role" class="widget" autofocus>
+			<option value=0>рассматривает</option>
+			<option value=1>инициировал</option>
+		</select>
 
 		<select name="id_user" class="widget">
 			<option data-list=users data-value=id data-text=label></option>
 		</select>
+
+		<button name="create" class="icon create" data-question="Вы уверены, что это дело ещё не оформлено?">Новое дело...</button>
 
 		<input class="widget" name="q" placeholder="Фильтр">
 
