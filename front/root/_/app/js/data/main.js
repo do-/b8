@@ -19,7 +19,7 @@ define ([], function () {
         }
         else {
 
-            if (!$_REQUEST.type) redirect ('/users/')
+            if (!$_REQUEST.type) redirect ('/tasks/')
 
             if ($_REQUEST.download) return use.data ($_REQUEST.type)
 

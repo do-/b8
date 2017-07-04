@@ -36,7 +36,7 @@ sub do_create_sessions {
 
 	sql_do ("DELETE FROM sessions WHERE id_user = ?", $data -> {user} -> {id});
 
-	start_session (delete $data -> {user} -> {id});
+	start_session ($data -> {user} -> {id});
 
 	set_cookie (-name => 'login', -value => $d -> {login}, -httponly => 1, -path => '/_back');
 	

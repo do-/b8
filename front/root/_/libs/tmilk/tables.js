@@ -19,8 +19,10 @@ drw.title = function (s) {
         var tpTbody = $('tbody', template).clone ()
                
         $('tbody', template).empty ()
+        
+        if (!data) data = {fake: 0}
 
-        container.empty ().append (fill (template, {fake: 0}))
+        container.empty ().append (fill (template, data))
         
         function tb () {return $(sel + ' .toolbar')}
 
