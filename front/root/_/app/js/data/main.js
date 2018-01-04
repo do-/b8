@@ -2,7 +2,7 @@ define ([], function () {
 
     $_DO.logout_main = function () {
     
-        sessionStorage.clear ()
+        $_SESSION.end ()
         
         query ({type: 'sessions', action: 'delete'}, {}, $.noop, $.noop)
         
@@ -11,7 +11,7 @@ define ([], function () {
     }
 
     return function (done) {
-    
+
         if (!$_USER) {
 
             $_REQUEST.type = 'logon'
@@ -19,7 +19,7 @@ define ([], function () {
         }
         else {
 
-            if (!$_REQUEST.type) redirect ('/tasks/')
+            if (!$_REQUEST.type) redirect ('/users/')
 
             if ($_REQUEST.download) return use.data ($_REQUEST.type)
 

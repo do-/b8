@@ -1,6 +1,6 @@
 ################################################################################
 
-sub select_tasks {
+sub _select_tasks {
 	
 	my $q = $_REQUEST {search};
 	
@@ -50,5 +50,15 @@ sub do_create_tasks {
 		id_user_from => $_USER -> {id},
 		id_user_to   => $_REQUEST {data} {id_user_to}
 	})};
+	
+}
+
+################################################################################
+
+sub get_item_of_tasks {
+
+	my $data = sql ("tasks");
+		
+	$data;
 	
 }

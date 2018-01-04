@@ -59,6 +59,8 @@ requirejs (['elu/elu', 'tmilk/buttons', 'tmilk/tables'], function (jq, less, cor
     
     $_SESSION.beforeExpiry ($_SESSION.keepAlive)
     
+    window.addEventListener ('storage', $_SESSION.closeAllOnLogout)
+
     setup_request ()
     
     use.block ('main')

@@ -1,0 +1,64 @@
+<span class="drw form">
+
+	<table>
+
+		<tr>
+			<th>Тема:</th>
+			<td>
+				<input name="label" size="60" required>
+			</td>
+		</tr>
+<!--
+		<tr data-off="_read_only">
+			<th>Имя:</th>
+			<td><input name="i" size="40" required pattern="^[А-ЯЁ][а-яё]+$"></td>
+		</tr>
+		<tr data-off="_read_only">
+			<th>Отчество:</th>
+			<td><input name="o" size="40" required pattern="^[А-ЯЁ][а-яё]*[ач]$"></td>
+		</tr>
+		<tr data-on="_read_only">
+			<th>ФИО:
+				<input type="file" class="invisible">
+			</th>
+			<td data-text="label"></td>
+			<td rowspan=5 data-img="photo" data-on="photo"></td>
+		</tr>
+		<tr>
+			<th>login:</th>
+			<td><input name="login" size="40" required pattern="^[A-Za-z0-9\-_]*$"></td>
+		</tr>
+		<tr data-off="_read_only">
+			<th>Пароль:</th>
+			<td>
+				<input name="password" type="password" size="40">
+				<span id="span-password2">
+					ещё раз:
+					<input name="password2" type="password" size="40">
+				<span>
+			</td>
+		</tr>
+		<tr>
+			<th>Роль:</th>
+			<td data-text="role">
+				<div data-list="roles">
+					<input name="id_role" type="radio" data-value="id"><span data-text="label" />
+				</div>
+			</td>
+		</tr>
+-->
+	</table>
+
+	<div class="toolbar">
+
+		<button name=update class="icon ok"     data-key="Ctrl-Enter">Применить</button>
+		<button name=cancel class="icon cancel" data-key="Esc" data-question="Отменить эту операцию, Вы уверены?">Отменить</button>
+
+		<button name=edit   class="icon edit"   data-key="F4">Редактировать</button>
+		<button name=close  class="icon close"  data-key="Esc" data-question="Закрыть эту вкладку, Вы уверены?">Закрыть</button>
+
+	</div>
+
+</span>
+
+<span id="task-notes-table" />
